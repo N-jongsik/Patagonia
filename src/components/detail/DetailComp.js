@@ -1,7 +1,11 @@
 import React from "react";
 
 function DetailComp() {
-  return <div>DetailComp</div>;
+  return (
+    <>
+      <div class="container">id</div>
+    </>
+  );
 }
 
 //hyeji part
