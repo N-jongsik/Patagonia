@@ -16,9 +16,7 @@ function App() {
           <Route path="/shop" element={<ShopComp />} />
           <Route path="/detail" element={<DetailComp />} />
           <Route path="/cart" element={<CartComp />} />
-          <Route path="/map" element={<MapComp />}>
-            매장찾기
-          </Route>
+          <Route path="/map" element={<MapComp />} />
         </Route>
       </Routes>
     </>
