@@ -24,17 +24,16 @@ function NavbarComp() {
         </li>
       </ul>
       <div className="bg-black ">
-        <div className="flex justify-between px-4">
+        <div className="flex justify-around px-4">
           <div>&nbsp;</div>
           <nav className="container mx-auto flex justify-center px-4 md:px-0 text-white">
             <h1>
-              <a
-                href="#"
+              <div
                 className="font-bold h-full flex justify-center items-center text-center"
                 style={{ fontSize: "1.2rem", height: "4.8rem" }}
               >
                 추석 연휴 배송 안내
-              </a>
+              </div>
             </h1>
           </nav>
           <div className="hidden md:flex text-white ">
@@ -47,12 +46,16 @@ function NavbarComp() {
                 whiteSpace: "nowrap",
               }}
             >
+              <i
+                class="fa-solid fa-location-dot"
+                style={{ marginRight: "8px" }}
+              ></i>
               매장찾기
             </Link>
           </div>
         </div>
         <nav>
-          <div className="flex justify-around" style={{ background: "white" }}>
+          <div className="flex justify-around bg-white">
             <div className="flex justify-center items-center">
               <Link to={"/"}>
                 <img
@@ -61,38 +64,38 @@ function NavbarComp() {
                 />
               </Link>
             </div>
-            <ul className="flex py-5">
-              <li>
+            <ul className="before_list flex justify-center items-center">
+              <li className="h-full relative flex justify-center items-center">
                 <a
                   href="#"
-                  className="font-semibold hidden md:block py-2 text-black "
+                  className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
                   Shop
                 </a>
               </li>
-              <li>
+              <li className="h-full relative flex justify-center items-center">
                 <a
                   href="#"
-                  className="font-semibold hidden md:block py-2 text-black "
+                  className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
                   Activism
                 </a>
               </li>
-              <li>
+              <li className="h-full relative flex justify-center items-center">
                 <a
                   href="#"
-                  className="font-semibold hidden md:block py-2 text-black "
+                  className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
                   Sports
                 </a>
               </li>
-              <li>
+              <li className="h-full relative flex justify-center items-center">
                 <a
                   href="#"
-                  className="font-semibold hidden md:block py-2 text-black "
+                  className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
                   Stories
