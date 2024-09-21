@@ -825,87 +825,95 @@ function DetailComp() {
           </li>
         </ul>
       </div>
-      {/* 영향 */}
-      <div className="mt-72 ">
-        <div className="flex items-center w-full mb-[4.5rem] px-32">
-          <p className="w-1/4 text-base font-bold tracking-[-0.016rem]">
+      {/* impact */}
+      <div className="mt-16">
+        {/* Section Title */}
+        <div className="bg-red-500 relative mb-8 px-8">
+          <p className="bg-orange-300 text-lg font-bold m-0 absolute left-8">
             제품의 환경 영향
           </p>
-          <h3 className="text-3xl font-bold tracking-[-0.032rem]">
+
+          <p className="bg-slate-400 text-2xl font-bold tracking-tight text-center mx-auto">
             우리가 만드는 모든 것이 지구에 영향을 미칩니다.
-          </h3>
+          </p>
         </div>
-        <div className="w-full">
-          <div className="flex justify-center items-center h-20">
-            <button
-              className={`flex items-center p-10 tracking-[-0.01rem] text-black transition-all duration-160 ease-[cubic-bezier(0.38, 0.41, 0.27, 1)] border-b-4 ${
-                activeButton === "made" ? "border-black" : "border-[#eaeaea]"
-              } font-["Avenir Next W02", sans-serif]`}
-              onClick={() => setActiveButton("made")}
-            >
-              <p className="font-base font-bold transform hover:-translate-y-1">
-                How it's made
-              </p>
-            </button>
-            <button
-              className={`flex items-center p-10 tracking-[-0.01rem] text-black transition-all duration-160 ease-[cubic-bezier(0.38, 0.41, 0.27, 1)] border-b-4 ${
-                activeButton === "where" ? "border-black" : "border-[#eaeaea]"
-              } font-["Avenir Next W02", sans-serif]`}
-              onClick={() => setActiveButton("where")}
-            >
-              <p className="font-base font-bold transform hover:-translate-y-1">
-                Where it's made
-              </p>
+
+        {/* Button Group */}
+        <div className="flex justify-center items-center h-20 mb-9">
+          <button
+            className={`flex items-center p-10 tracking-[-0.01rem] text-black transition-all duration-160 ease-[cubic-bezier(0.38, 0.41, 0.27, 1)] border-b-4 ${
+              activeButton === "made" ? "border-black" : "border-[#eaeaea]"
+            } font-["Avenir Next W02", sans-serif]`}
+            onClick={() => setActiveButton("made")}
+          >
+            <p className="font-base font-bold transform hover:-translate-y-1">
+              How it's made
+            </p>
+          </button>
+          <button
+            className={`flex items-center p-10 tracking-[-0.01rem] text-black transition-all duration-160 ease-[cubic-bezier(0.38, 0.41, 0.27, 1)] border-b-4 ${
+              activeButton === "where" ? "border-black" : "border-[#eaeaea]"
+            } font-["Avenir Next W02", sans-serif]`}
+            onClick={() => setActiveButton("where")}
+          >
+            <p className="font-base font-bold transform hover:-translate-y-1">
+              Where it's made
+            </p>
+          </button>
+        </div>
+
+        {/* Cards Section */}
+        <div className="bg-red-200 flex justify-center gap-5 px-4 ">
+          <div className="w-72 h-80 bg-white p-4 rounded-lg shadow-md">
+            <img
+              src={product.impactImage[0].src}
+              className="w-full h-40 object-cover rounded-md mb-2"
+            />
+
+            <h4 className="text-md font-bold mb-1">리사이클 폴리에스터</h4>
+            <p className="text-xs mb-2">
+              리사이클 폴리에스터는 석유로 만든 버진 원단에 대한 의존도를 낮춰
+              줍니다.
+            </p>
+            <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
+              Learn more
             </button>
           </div>
-          <div className="relative px-28 py-16">
-            {/* swiper */}
-            {/* <div>
-              <ul>
-                <li className="w-[326px] mr-[20px]">
-                  <img src={product.impactImage[0].src} />
-                </li>
-                <li className="w-[326px] mr-[20px]">
-                  <img src={product.impactImage[1].src} />
-                </li>
-                <li className="w-[326px] mr-[20px]">
-                  <img src={product.impactImage[2].src} />
-                </li>
-              </ul>
-            </div> */}
-            <div className="relative overflow-hidden will-change-transform rounded-lg transition-transform duration-300 ease-[cubic-bezier(0.38, 0.41, 0.27, 1)] z-1 bg-[#f5f5f5]">
-              <div>
-                <div className="pt-[100%]">
-                  <img
-                    src={product.impactImage[0].src}
-                    className="absolute right-[-15%] left-auto top-[-25%] w-[67%] h-[58%] !important rounded-full"
-                  />
-                </div>
-                <div className="top-[33%] h-[67%] will-change-[height] transition-[height_300ms_cubic-bezier(0.38,0.41,0.27,1),top_300ms_cubic-bezier(0.38,0.41,0.27,1)]">
-                  <div className="relative px-12 pt-12 pb-8 transition-transform duration-300 ease-[cubic-bezier(0.38,0.41,0.27,1)] text-black font-['Avenir_Next_W02,NanumSquareNeo,sans-serif']">
-                    <p className="font-['Lusitana,NanumSquare,sans-serif'] font-medium">
-                      리사이클 폴리에스터
-                    </p>
-                    <p className="pb-[1.2rem] text-[1.6rem] font-medium">
-                      리사이클 폴리에스터는 석유로 만든 버진 원단에 대한
-                      의존도를 낮춰 줍니다.
-                    </p>
-                    <p className="max-w-full mt-5 overflow-hidden text-xl font-bold text-ellipsis whitespace-nowrap tracking-[-0.01em] leading-5 transition-opacity duration-150 ease-[cubic-bezier(0.38,0.41,0.27,1)]">
-                      Material
-                    </p>
-                  </div>
-                  <div className="absolute left-12 bottom-8 z-2 transition-all duration-300 ease-[cubic-bezier(0.38,0.41,0.27,1)]">
-                    <button>Learn More</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="text-center">
-              <button className="inline-block box-border cursor-pointer min-w-[16.8rem] py-[1.2rem] px-[3.1rem] text-[1.6rem] font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full">
-                Our Footprint
-              </button>
-            </div>
+          <div className="w-72 bg-white p-4 rounded-lg shadow-md">
+            <img
+              src={product.impactImage[1].src}
+              className="w-full h-40 object-cover rounded-md mb-2"
+            />
+
+            <h4 className="text-md font-bold mb-1">리사이클 코튼</h4>
+            <p className="text-xs mb-2">
+              파타고니아의 리사이클 코튼은 자투리 천으로 만들어졌습니다.
+            </p>
+            <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
+              Learn more
+            </button>
           </div>
+          <div className="w-72 bg-white p-4 rounded-lg shadow-md">
+            <img
+              src={product.impactImage[2].src}
+              className="w-full h-40 object-cover rounded-md mb-2"
+            />
+
+            <h4 className="text-md font-bold mb-1">공정 무역</h4>
+            <p className="text-xs mb-2">
+              노동자의 생활 임금 보장을 위한 첫 걸음.
+            </p>
+            <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
+              Learn more
+            </button>
+          </div>
+        </div>
+
+        {/* Footer Button */}
+        <div className="text-center mt-4">
+          <button className="inline-block py-2 px-4 text-sm font-bold text-white bg-black rounded-full">
+            Our Footprint
+          </button>
         </div>
       </div>
       {/* 최근 본 상품 */}
@@ -915,3 +923,4 @@ function DetailComp() {
 }
 
 export default DetailComp;
+// 정상코드
