@@ -576,7 +576,7 @@ function MapComp() {
     setSearchFilter(filtered);
   };
 
-  const displayedStores = searchTerm ? searchFilter : storeInfo;
+  // const displayedStores = searchTerm ? searchFilter : storeInfo;
 
   useEffect(() => {
     const mapContainer = document.getElementById("map"), // 지도를 표시할 div
@@ -687,7 +687,7 @@ function MapComp() {
   return (
     <>
       <div className="flex">
-        <div className="container" style={{ width: "25%", height: "100vh" }}>
+        <div className="container w-full md:w-1/4 h-screen">
           <div
             className="bg-black relative"
             style={{ height: "9.7rem", padding: "1.8rem 1rem" }}
@@ -720,16 +720,28 @@ function MapComp() {
               />
 
               {searchTerm && (
-                <div class=" block left-4 top-32 w-full h-80 bg-white overflow-y-auto shadow-[0_0_14px_rgba(0,0,0,0.3)]">
+                <div className="block left-4 top-32 w-full h-80 bg-white overflow-y-auto shadow-[0_0_14px_rgba(0,0,0,0.3)]">
                   {searchFilter.length > 0 ? (
-                    searchFilter.map((store, index) => (
-                      <p
-                        key={index}
-                        className="w-full font-normal cursor-pointer px-6 py-7 border-b border-[#d4cec9] text-[#837c77] text-lg"
-                      >
-                        {store.addr} {/* 매장의 주소 출력 */}
-                      </p>
-                    ))
+                    searchFilter.map((store, index) => {
+                      const { addr } = store;
+                      const parts = addr.split(new RegExp(`(${searchTerm})`)); // searchTerm을 기준으로 분리
+                      return (
+                        <p
+                          key={index}
+                          className="w-full font-normal cursor-pointer px-6 py-7 border-b border-[#d4cec9] text-[#837c77] text-lg"
+                        >
+                          {parts.map((part, i) =>
+                            part === searchTerm ? (
+                              <strong key={i} className="text-black">
+                                {part}
+                              </strong> // 검색한 단어만 강조
+                            ) : (
+                              part // 나머지 부분은 그냥 출력
+                            )
+                          )}
+                        </p>
+                      );
+                    })
                   ) : (
                     <p className="text-black flex justify-center items-center font-bold h-full text-xl">
                       매장이 없습니다
@@ -739,16 +751,12 @@ function MapComp() {
               )}
             </div>
           </div>
-          {/* 전체 매장
-          <div className="container py-0 px-[0.8rem]">
-            <div className="grid sm:grid-cols-1 sm-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
-          </div> */}
 
           <div
             style={{
               padding: "1rem",
               background: "#f7f6f5",
-              height: "83.3vh",
+              height: "77.7vh",
               overflowY: "auto",
             }}
           >
@@ -800,7 +808,7 @@ function MapComp() {
           </div>
         </div>
 
-        <div id="map" style={{ width: "75%", height: "100vh" }}></div>
+        <div id="map" className="hidden md:block md:w-3/4 h-screen"></div>
       </div>
       <section style={{ paddingLeft: "6rem", paddingRight: "6rem" }}>
         <div
