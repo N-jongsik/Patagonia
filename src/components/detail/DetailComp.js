@@ -789,20 +789,6 @@ function DetailComp() {
               연관상품
             </h3>
           </div>
-          {/* swiper */}
-          {/* <div className="swiper swiper-container mySwiper ptg__relation__swiper ptg__category__swiper ptg__goods__relation__swiper swiper-container-initialized swiper-container-horizontal swiper-container-free-mode pb-12">
-            <ul
-              className="swiper-wrapper fb__items ptg__items devListContents box-border flex-nowrap"
-              style={{
-                transform: "translate3d(0px, 0px, 0px)",
-                transitionDuration: "0ms",
-              }}
-            >
-              <li className="w-80 mr-5 absolute left-0 top-0 block h-full z-2 -indent-[9999px]">
-                <img></img>
-              </li>
-            </ul>
-          </div> */}
         </div>
       </div>
       {/* 상품문의 */}
@@ -923,3 +909,4 @@ function DetailComp() {
 }
 
 export default DetailComp;
+// 정상코드
