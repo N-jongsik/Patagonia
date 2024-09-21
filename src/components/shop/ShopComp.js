@@ -21,6 +21,8 @@ import product7 from "../../assets/images/product7.jpg";
 import product8 from "../../assets/images/product8.jpg";
 import product9 from "../../assets/images/product9.jpg";
 
+import slide_icon from "../../assets/images/icon-chevron-slider.png";
+
 const navigation = [
   { name: "모든상품", href: "#", current: true },
   { name: "신상품", href: "#", current: false },
@@ -249,6 +251,13 @@ function ShopComp() {
       {/* Header */}
       <header className="bg-white">
         <div className="max-w-full px-2 py-8">
+          <div className="flex justify-between ml-8 mb-10 w-40">
+            <p className="text-md font-bold">Women's</p>
+            <div className="mt-1">
+              <img src={slide_icon} className="w-3 h-3"></img>
+            </div>
+            <p className="text-gray-700">모든상품</p>
+          </div>
           <h1 className="text-7xl font-bold tracking-tight text-gray-900 text-left ml-6">
             Women's
           </h1>
@@ -325,7 +334,8 @@ function ShopComp() {
 
           /* Sub-items hover effect */
           .sub-item:hover {
-            background-color: #e5e7eb;
+            background-color: #f5f5f5;
+            border-radius: 20px;
           }
 
           /* Checkbox and Radio button clicked effect */
@@ -341,18 +351,18 @@ function ShopComp() {
             {/* Category */}
             <ul
               role="list"
-              className="w-full max-w-xs divide-y divide-gray-100 p-1 ml-8"
+              className="w-full max-w-xs divide-y divide-gray-100 py-1 px-2 ml-8"
             >
               {category.map((category) => (
                 <li
                   key={category.id}
-                  className="w-full max-w-[16rem] divide-y divide-gray-100 p-1 ml-8"
+                  className="w-full max-w-[18rem] divide-y divide-gray-100 p-2 ml-8"
                 >
                   <div className="flex min-w-0 gap-x-4 items-center">
                     <div className="min-w-0 flex-auto py-2">
                       <div className="flex items-center justify-between">
                         {/* Category Name */}
-                        <p className="text-md font-semibold leading-6 text-gray-900 text-left">
+                        <p className="text-lg font-semibold leading-6 text-gray-900 text-left">
                           {category.category}
                         </p>
                         <p className="text-xs font-semibold leading-6 text-gray-900 ml-16">
@@ -393,7 +403,7 @@ function ShopComp() {
                             // Render checkboxes for specific categories
                             category.sub_items.map((sub_item, index) => (
                               <div
-                                className="flex items-center space-x-2 cursor-pointer"
+                                className="flex items-center space-x-2 cursor-pointer sub-item px-2 py-2 font-bold"
                                 onClick={() =>
                                   document
                                     .getElementById(
@@ -402,20 +412,25 @@ function ShopComp() {
                                     .click()
                                 }
                               >
-                                <input
-                                  type="checkbox"
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    id={`checkbox-${category.id}-${index}`}
+                                    className="hidden peer"
+                                  />
+                                </label>
+                                <div
                                   id={`checkbox-${category.id}-${index}`}
-                                  className="hidden peer"
-                                />
-                                <div className="w-5 h-5 bg-gray-300 rounded-sm flex items-center justify-center peer-checked:block">
+                                  className="w-5 h-5 bg-gray-300 rounded-sm flex items-center justify-center"
+                                >
                                   {/* 체크 표시 */}
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className="h-4 w-4 peer-checked:block hidden" // 체크되었을 때만 보이도록
+                                    className="h-5 w-5 peer-checked:block hidden" // 체크되었을 때만 보이도록
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
-                                    strokeWidth="2"
+                                    strokeWidth="4"
                                   >
                                     <path
                                       strokeLinecap="round"
@@ -438,7 +453,7 @@ function ShopComp() {
                             >
                               {category.sub_items.map((sub_item, index) => (
                                 <div
-                                  className="flex items-center space-x-2 cursor-pointer"
+                                  className="flex items-center space-x-2 px-2 py-2 cursor-pointer sub-item"
                                   onClick={() =>
                                     document
                                       .getElementById(
@@ -462,6 +477,30 @@ function ShopComp() {
                                 </div>
                               ))}
                             </RadioGroup>
+                          ) : category.category === "색상" ? (
+                            // Render div for "색상"
+                            <div className="flex flex-wrap space-x-2 mt-2">
+                              <div>
+                                <div className="flex justify-between gap-2">
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-50" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-100" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-200" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-300" />
+                                </div>
+                                <div className="flex justify-between gap-2 mt-2">
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-400" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-500" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-600" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-700" />
+                                </div>
+                                <div className="flex justify-between gap-2 mt-2">
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-800" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-900" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-950" />
+                                  <div className="w-12 h-12 rounded-full border-solid border-2 border-gray-200 bg-ct-1000" />
+                                </div>
+                              </div>
+                            </div>
                           ) : (
                             // Render simple list items for other categories
                             category.sub_items.map((sub_item, index) => (

@@ -39,6 +39,42 @@ function CartComp() {
   const [open, setOpen] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
 
+  const [isTextVisible1, setIsTextVisible1] = useState(true);
+
+  const toggleTextVisibility1 = () => {
+    setIsTextVisible1(!isTextVisible1);
+    setIsTextVisible2(false);
+    setIsTextVisible3(false);
+    setIsTextVisible4(false);
+  };
+
+  const [isTextVisible2, setIsTextVisible2] = useState(false);
+
+  const toggleTextVisibility2 = () => {
+    setIsTextVisible1(false);
+    setIsTextVisible2(!isTextVisible2);
+    setIsTextVisible3(false);
+    setIsTextVisible4(false);
+  };
+
+  const [isTextVisible3, setIsTextVisible3] = useState(false);
+
+  const toggleTextVisibility3 = () => {
+    setIsTextVisible1(false);
+    setIsTextVisible2(false);
+    setIsTextVisible3(!isTextVisible3);
+    setIsTextVisible4(false);
+  };
+
+  const [isTextVisible4, setIsTextVisible4] = useState(false);
+
+  const toggleTextVisibility4 = () => {
+    setIsTextVisible1(false);
+    setIsTextVisible2(false);
+    setIsTextVisible3(false);
+    setIsTextVisible4(!isTextVisible4);
+  };
+
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -76,6 +112,7 @@ function CartComp() {
                     </svg>
                   )}
                 </div>
+
                 <span
                   className="ml-2 cursor-pointer"
                   onClick={handleCheckboxChange}
@@ -201,26 +238,72 @@ function CartComp() {
           <div className="font-bold text-4xl ml-10 mb-12 mt-32">
             <p>Order Footprint</p>
           </div>
-          <div className="flex justify-between w-60 ml-10">
-            <div className="bg-white border-black border-solid border-4 w-12 h-12 rounded-full">
-              <img src={foot_icon1} className="w-12 h-12"></img>
+          <div className="flex flex-col items-start">
+            <div className="flex justify-between w-60 ml-10">
+              <div
+                className="bg-white border-black border-solid border-4 w-14 h-14 rounded-full cursor-pointer"
+                onClick={toggleTextVisibility1}
+              >
+                <img src={foot_icon1} className="w-14 h-14 py-1" alt="Icon 1" />
+              </div>
+              <div
+                className="bg-white border-black border-solid border-4 w-14 h-14 rounded-full cursor-pointer"
+                onClick={toggleTextVisibility2}
+              >
+                <img src={foot_icon2} className="w-14 h-14 py-1" alt="Icon 2" />
+              </div>
+              <div
+                className="bg-white border-black border-solid border-4 w-14 h-14 rounded-full cursor-pointer"
+                onClick={toggleTextVisibility3}
+              >
+                <img src={foot_icon3} className="w-14 h-14 py-1" alt="Icon 3" />
+              </div>
+              <div
+                className="bg-white border-black border-solid border-4 w-14 h-14 rounded-full cursor-pointer"
+                onClick={toggleTextVisibility4}
+              >
+                <img src={foot_icon4} className="w-14 h-14 py-1" alt="Icon 4" />
+              </div>
             </div>
-            <div className="bg-white border-black border-solid border-4 w-12 h-12 rounded-full">
-              <img src={foot_icon2} className="w-12 h-12"></img>
-            </div>
-            <div className="bg-white border-black border-solid border-4 w-12 h-12 rounded-full">
-              <img src={foot_icon3} className="w-12 h-12"></img>
-            </div>
-            <div className="bg-white border-black border-solid border-4 w-12 h-12 rounded-full">
-              <img src={foot_icon4} className="w-12 h-12"></img>
-            </div>
+
+            {/* 글씨가 보이는 부분 */}
+            {isTextVisible1 && (
+              <div className="mt-4 ml-12 mb-8 text-xl">
+                <p className="font-bold">Organic</p>
+                <p>
+                  Fair Trade 전체 라인 중 87%가 공정 무역(Fair Trade Certified™)
+                  봉제 제품입니다.
+                </p>
+              </div>
+            )}
+
+            {isTextVisible2 && (
+              <div className="mt-4 ml-12 mb-8 text-xl">
+                <p className="font-bold">Fair Trade</p>
+                <p>Recycled</p>
+              </div>
+            )}
+
+            {isTextVisible3 && (
+              <div className="mt-4 ml-12 mb-8 text-xl">
+                <p className="font-bold">Recycled</p>
+                <p>전체 라인 중 87%가 리사이클 소재입니다.</p>
+              </div>
+            )}
+
+            {isTextVisible4 && (
+              <div className="mt-4 ml-12 mb-8 text-xl">
+                <p className="font-bold">Hemp</p>
+                <p>Hemp 이번 시즌에 37개 스타일에서 헴프를 사용했습니다.</p>
+              </div>
+            )}
           </div>
 
           <div className="flex justify-between  bg-gray-100 ml-10 mt-4 px-4 py-6 rounded-lg max-w-screen-xl">
             <div className="ml-4">
               <img src={foot_icon5} className="w-28 h-12"></img>
             </div>
-            <div className="flex justify-between gap-2 mr-36 mt-3">
+            <div className="flex justify-between gap-4 mr-32 mt-3">
               <div className="text-2xl">
                 <p>
                   구매하신 금액의 1%는 풀뿌리 환경단체에 지원금으로 전달됩니다.
@@ -232,7 +315,6 @@ function CartComp() {
             </div>
           </div>
         </div>
-
         {/* 결제 창 */}
         <div className="bg-black w-1/3 rounded-lg py-4 ml-2 mr-8 h-3/5">
           <div className="ml-28">
