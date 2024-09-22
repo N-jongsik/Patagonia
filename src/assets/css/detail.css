@@ -1,16 +1,44 @@
-img.narrow {
-  max-width: 100%;
-  height: 11px;
+.swiper {
+  width: 100%;
+  height: 100%;
 }
 
-.ProductDeatilWrapPC .Inner .ProductImageWrap {
-  display: grid;
-  grid-gap: 10px;
-  grid-auto-rows: -webkit-min-content;
-  grid-auto-rows: min-content;
-  grid-template-columns: repeat(auto-fit, minmax(calc(50% - 10px), 1fr));
-  overflow: hidden;
-  position: relative;
-  max-width: 910px;
-  margin-top: 2rem;
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  width: 100%;
+  height: 300px;
+  margin: 20px auto;
+}
+.append-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.append-buttons button {
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #007aff;
+  color: #007aff;
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin: 0 10px;
+  font-size: 13px;
 }

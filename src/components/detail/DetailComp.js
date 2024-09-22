@@ -1,34 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup } from "@headlessui/react";
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 import "../../index.css";
 import "../../assets/css/reset.css";
 import "../../assets/css/detail.css";
 
-import hoody1 from "../../assets/images/hoody1.jpg";
-import hoody2 from "../../assets/images/hoody2.jpg";
-import hoody3 from "../../assets/images/hoody3.jpg";
+import hoody1 from "../../assets/images/detail/detail_description/hoody1.jpg";
+import hoody2 from "../../assets/images/detail/detail_description/hoody2.jpg";
+import hoody3 from "../../assets/images/detail/detail_description/hoody3.jpg";
 import icon1 from "../../assets/images/icon-chevron-slider.png";
 import icon2 from "../../assets/images/ff-icon-black.jpg";
 import icon3 from "../../assets/images/icon_pop_close_white.png";
 import icon4 from "../../assets/images/bg_arrow_down.jpg";
 import star from "../../assets/images/star.jpg";
 import search from "../../assets/images/icon-search-point.png";
-import impact1 from "../../assets/images/recycled-polyester.png";
-import impact2 from "../../assets/images/recycled-cotton.png";
-import impact3 from "../../assets/images/fair-trade.jpeg";
-import map from "../../assets/images/map.jpg";
-
+import impact1 from "../../assets/images/detail/impact/impact1.png";
+import impact2 from "../../assets/images/detail/impact/impact2.png";
+import impact3 from "../../assets/images/detail/impact/impact3.jpeg";
+import map from "../../assets/images/detail/impact/map.jpg";
+import DescriptionSwiper from "./swiper/DescriptionSwiper";
+import RelatedSwiper from "./swiper/RelatedSwiper";
+import ImpactHowSwiper from "./swiper/ImpactHowSwiper";
+import ImpactWhereSwiper from "./swiper/ImpactWhereSwiper";
 const product = {
   name: "'73 Skyline Uprisal Hoody",
   koName: "73 스카이라인 업라이절 후디",
@@ -78,17 +74,8 @@ const product = {
     { name: "XL", inStock: true },
     { name: "XXL", inStock: false },
   ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 };
+
 const reviews = { href: "#", average: 5, totalCount: 23 };
 
 function classNames(...classes) {
@@ -100,13 +87,12 @@ function DetailComp() {
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
   const [modalOpen, setModalOpen] = useState(false);
-  // const [accordianOpen, setAccordianOpen] = useState(false);
 
   // 각각의 아코디언에 대해 상태를 관리하는 배열
   const [accordionStates, setAccordionStates] = useState([false, false, false]);
 
   //영향의 버튼
-  const [activeButton, setActiveButton] = useState("made");
+  const [activeButton, setActiveButton] = useState("how");
 
   // 모달 열기
   const openModal = () => {
@@ -118,16 +104,29 @@ function DetailComp() {
     setModalOpen(false);
   };
 
-  // //아코디언 상태관리
-  // const toggleAccordion = () => {
-  //   setAccordianOpen(!accordianOpen);
-  // };
-
   const toggleAccordion = (index) => {
     setAccordionStates((prevStates) =>
       prevStates.map((state, i) => (i === index ? !state : state))
     );
   };
+
+  // 화면 크기 상태값에 따른 반응형 구분 변수
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  // lg일때와 md,sm일때의 반응형이 다르기에, 구분을 위한 hook 설정
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); //tailwind.config.js보고 설정함
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div>
       <div className="pt-6">
@@ -155,28 +154,32 @@ function DetailComp() {
         <div className="mx-auto mt-6 max-w-2xl lg:max-w-7xl lg:grid lg:grid-cols-5 lg:gap-x-8 lg:px-8">
           {/* image gallery (lg: 3/5) */}
           <div className="lg:col-span-3">
-            <div className="flex grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
-              {product.images.map((image, index) => (
-                <div
-                  key={index}
-                  className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg relative"
-                >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="h-full w-full object-cover object-center"
-                  />
-                  <div className="z-10 bottom-4 left-0 w-full flex items-center justify-between gap-0 pl-4 pr-4">
-                    <div
-                      className="absolute bottom-4 left-2 bg-white border border-white rounded-xl text-black text-xs font-bold leading-4 py-1 px-3"
-                      style={{ transformStyle: "preserve-3d" }}
-                    >
-                      {image.alt}
+            {isLargeScreen ? (
+              <div className="flex grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4">
+                {product.images.map((image, index) => (
+                  <div
+                    key={index}
+                    className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg relative"
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="h-full w-full object-cover object-center"
+                    />
+                    <div className="z-10 bottom-4 left-0 w-full flex items-center justify-between gap-0 pl-4 pr-4">
+                      <div
+                        className="absolute bottom-4 left-2 bg-white border border-white rounded-xl text-black text-xs font-bold leading-4 py-1 px-3"
+                        style={{ transformStyle: "preserve-3d" }}
+                      >
+                        {image.alt}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <DescriptionSwiper />
+            )}
           </div>
 
           {/* product description (lg: 2/5) */}
@@ -783,26 +786,15 @@ function DetailComp() {
       {/* 저 리뷰리스트는 도저히 에반데? 나 못해 ㄹㅇ 못해  */}
       {/* 연관상품 */}
       <div>
-        <div className="relative pt-16 pb-16 pl-28 pr-28">
-          <div className="w-full mt-24 mb-14">
+        <div className="relative py-16 px-28">
+          <div className="w-full mt-16 mb-8">
             <h3 className="inline-flex items-baseline text-3xl font-bold leading-tight">
               연관상품
             </h3>
           </div>
-          {/* swiper */}
-          {/* <div className="swiper swiper-container mySwiper ptg__relation__swiper ptg__category__swiper ptg__goods__relation__swiper swiper-container-initialized swiper-container-horizontal swiper-container-free-mode pb-12">
-            <ul
-              className="swiper-wrapper fb__items ptg__items devListContents box-border flex-nowrap"
-              style={{
-                transform: "translate3d(0px, 0px, 0px)",
-                transitionDuration: "0ms",
-              }}
-            >
-              <li className="w-80 mr-5 absolute left-0 top-0 block h-full z-2 -indent-[9999px]">
-                <img></img>
-              </li>
-            </ul>
-          </div> */}
+        </div>
+        <div>
+          <RelatedSwiper />
         </div>
       </div>
       {/* 상품문의 */}
@@ -818,7 +810,7 @@ function DetailComp() {
             </div>
             {/* <div className="mt-6 w-full"></div> */}
             <div className="flex mt-6 flex-col items-center">
-              <button className="inline-block min-w-[16.8rem] px-[3.1rem] py-[1.2rem] text-[1.6rem] font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full">
+              <button className="inline-block min-w-40 px-12 py-5 text-2xl font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full">
                 상품문의작성
               </button>
             </div>
@@ -827,13 +819,12 @@ function DetailComp() {
       </div>
       {/* impact */}
       <div className="mt-16">
-        {/* Section Title */}
-        <div className="bg-red-500 relative mb-8 px-8">
-          <p className="bg-orange-300 text-lg font-bold m-0 absolute left-8">
+        <div className="relative mb-8 px-8">
+          <p className="ext-lg font-bold lg:m-0 lg:absolute lg:left-8 md:static sm:static">
             제품의 환경 영향
           </p>
 
-          <p className="bg-slate-400 text-2xl font-bold tracking-tight text-center mx-auto">
+          <p className="text-2xl font-bold lg:tracking-tight lg:text-center lg:mx-auto md:static sm:static">
             우리가 만드는 모든 것이 지구에 영향을 미칩니다.
           </p>
         </div>
@@ -842,9 +833,9 @@ function DetailComp() {
         <div className="flex justify-center items-center h-20 mb-9">
           <button
             className={`flex items-center p-10 tracking-[-0.01rem] text-black transition-all duration-160 ease-[cubic-bezier(0.38, 0.41, 0.27, 1)] border-b-4 ${
-              activeButton === "made" ? "border-black" : "border-[#eaeaea]"
+              activeButton === "how" ? "border-black" : "border-[#eaeaea]"
             } font-["Avenir Next W02", sans-serif]`}
-            onClick={() => setActiveButton("made")}
+            onClick={() => setActiveButton("how")}
           >
             <p className="font-base font-bold transform hover:-translate-y-1">
               How it's made
@@ -863,61 +854,106 @@ function DetailComp() {
         </div>
 
         {/* Cards Section */}
-        <div className="bg-red-200 flex justify-center gap-5 px-4 ">
-          <div className="w-72 h-80 bg-white p-4 rounded-lg shadow-md">
-            <img
-              src={product.impactImage[0].src}
-              className="w-full h-40 object-cover rounded-md mb-2"
-            />
 
-            <h4 className="text-md font-bold mb-1">리사이클 폴리에스터</h4>
-            <p className="text-xs mb-2">
-              리사이클 폴리에스터는 석유로 만든 버진 원단에 대한 의존도를 낮춰
-              줍니다.
-            </p>
-            <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
-              Learn more
-            </button>
-          </div>
-          <div className="w-72 bg-white p-4 rounded-lg shadow-md">
-            <img
-              src={product.impactImage[1].src}
-              className="w-full h-40 object-cover rounded-md mb-2"
-            />
+        {activeButton === "how" && (
+          <div className="flex justify-center gap-5 px-4 ">
+            {isLargeScreen ? (
+              <>
+                <div className="w-72 h-80 bg-white p-4 rounded-lg shadow-md">
+                  <img
+                    src={product.impactImage[0].src}
+                    className="w-full h-40 object-cover rounded-md mb-2"
+                  />
 
-            <h4 className="text-md font-bold mb-1">리사이클 코튼</h4>
-            <p className="text-xs mb-2">
-              파타고니아의 리사이클 코튼은 자투리 천으로 만들어졌습니다.
-            </p>
-            <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
-              Learn more
-            </button>
-          </div>
-          <div className="w-72 bg-white p-4 rounded-lg shadow-md">
-            <img
-              src={product.impactImage[2].src}
-              className="w-full h-40 object-cover rounded-md mb-2"
-            />
+                  <h4 className="text-md font-bold mb-1">
+                    리사이클 폴리에스터
+                  </h4>
+                  <p className="text-xs mb-2">
+                    리사이클 폴리에스터는 석유로 만든 버진 원단에 대한 의존도를
+                    낮춰 줍니다.
+                  </p>
+                  <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
+                    Learn more
+                  </button>
+                </div>
+                <div className="w-72 bg-white p-4 rounded-lg shadow-md">
+                  <img
+                    src={product.impactImage[1].src}
+                    className="w-full h-40 object-cover rounded-md mb-2"
+                  />
 
-            <h4 className="text-md font-bold mb-1">공정 무역</h4>
-            <p className="text-xs mb-2">
-              노동자의 생활 임금 보장을 위한 첫 걸음.
-            </p>
-            <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
-              Learn more
-            </button>
+                  <h4 className="text-md font-bold mb-1">리사이클 코튼</h4>
+                  <p className="text-xs mb-2">
+                    파타고니아의 리사이클 코튼은 자투리 천으로 만들어졌습니다.
+                  </p>
+                  <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
+                    Learn more
+                  </button>
+                </div>
+                <div className="w-72 bg-white p-4 rounded-lg shadow-md">
+                  <img
+                    src={product.impactImage[2].src}
+                    className="w-full h-40 object-cover rounded-md mb-2"
+                  />
+
+                  <h4 className="text-md font-bold mb-1">공정 무역</h4>
+                  <p className="text-xs mb-2">
+                    노동자의 생활 임금 보장을 위한 첫 걸음.
+                  </p>
+                  <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
+                    Learn more
+                  </button>
+                </div>
+              </>
+            ) : (
+              // Medium/Small screen (md, sm)일 때 Swiper를 보여줌
+              <ImpactHowSwiper />
+            )}
           </div>
-        </div>
+        )}
+
+        {activeButton === "where" && (
+          <div className="flex justify-center gap-5 px-4">
+            {isLargeScreen ? (
+              <>
+                <div className="w-72 h-80 bg-white p-4 rounded-lg shadow-md">
+                  <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg relative">
+                    <img
+                      src={product.impactImage[3].src}
+                      className="h-full w-full object-cover rounded-md mb-2"
+                    />
+                    <div className="z-10 bottom-4 left-0 w-full flex items-center justify-between gap-0 pl-4 pr-4">
+                      <div
+                        className="absolute bottom-4 left-2 bg-white border border-white rounded-xl text-black text-xs font-bold leading-4 py-1 px-3"
+                        style={{ transformStyle: "preserve-3d" }}
+                      >
+                        Vertical Knits S.A. de C.V.
+                      </div>
+                    </div>
+                  </div>
+                  <button className="text-xs font-bold py-1 px-3 bg-black text-white rounded-full">
+                    Learn more
+                  </button>
+                </div>
+              </>
+            ) : (
+              // Medium/Small screen (md, sm)일 때 Swiper를 보여줌
+              <ImpactWhereSwiper />
+            )}
+          </div>
+        )}
 
         {/* Footer Button */}
-        <div className="text-center mt-4">
-          <button className="inline-block py-2 px-4 text-sm font-bold text-white bg-black rounded-full">
+        <div className="flex mt-6 flex-col items-center">
+          <button className="inline-block min-w-40 px-12 py-5 text-2xl font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full">
             Our Footprint
           </button>
         </div>
       </div>
       {/* 최근 본 상품 */}
-      <div></div>
+      <div className="container">
+        <div className="relative px-28 py-16"></div>
+      </div>
     </div>
   );
 }
