@@ -25,46 +25,48 @@ const SwiperComp2 = () => {
   ];
 
   return (
-    <Swiper
-      spaceBetween={30}
-      slidesPerView={4}
-      breakpoints={{
-        320: { slidesPerView: 1 },
-        640: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-        1280: { slidesPerView: 4 },
-      }}
-      navigation={{
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      }}
-    >
-      {images.map((image, index) => (
-    <SwiperSlide key={index}>
-    <div className="relative flex flex-col justify-between w-full h-96 rounded-lg overflow-hidden group">
-      <img className="h-full w-full object-cover" src={image} alt={`slide-${index + 1}`} />
-      <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-80 transition-opacity duration-400"></div>
-      <div className="absolute inset-0 flex flex-col justify-between p-4">
-        <div className="flex-grow flex flex-col justify-center items-start text-white transform transition-transform duration-300 group-hover:-translate-y-14">
-          <h2 className="text-lg md:text-xl lg:text-2xl font-bold mb-2">{texts[index].title}</h2>
+    <div className='px-2'>
+        <Swiper
+        spaceBetween={30}
+        slidesPerView={4}
+        breakpoints={{
+          320: { slidesPerView: 1 },
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1280: { slidesPerView: 4 },
+        }}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }}
+      >
+        {images.map((image, index) => (
+      <SwiperSlide className='' key={index}>
+      <div className="relative flex flex-col justify-between w-full h-[600px] rounded-lg overflow-hidden group">
+        <img className="h-full w-full object-cover" src={image} alt={`slide-${index + 1}`} />
+        <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-80 transition-opacity duration-400"></div>
+        <div className="absolute inset-0 flex flex-col justify-between p-4">
+          <div className="flex-grow flex flex-col justify-center items-start text-white transform transition-transform duration-300 group-hover:-translate-y-16">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-bold mb-2 px-5">{texts[index].title}</h2>
+          </div>
+          <a 
+            href="#" 
+            className="absolute bottom-4 left-4 text-xs border border-white duration-400 bg-white bg-opacity-0 text-white px-4 py-1 rounded-full font-bold transition-transform duration-300 group-hover:bg-opacity-100 group-hover:text-black hover:scale-105 hover:transition-opacity hover:duration-300"
+          >
+            {texts[index].linkText}
+          </a>
         </div>
-        <a 
-          href="#" 
-          className="absolute bottom-4 left-4 text-xs border border-white transition-opacity duration-400 bg-white bg-opacity-0 text-white px-4 py-1 rounded-full font-bold transition-transform duration-300 group-hover:bg-opacity-100 group-hover:text-black hover:scale-105 hover:transition-opacity hover:duration-300"
-        >
-          {texts[index].linkText}
-        </a>
       </div>
-    </div>
-  </SwiperSlide>
-  
-      
-      ))}
+    </SwiperSlide>
+    
+        
+        ))}
 
-      {/* Custom Navigation Buttons */}
-      <div className="swiper-button-next custom-button"></div>
-      <div className="swiper-button-prev custom-button"></div>
-    </Swiper>
+        {/* Custom Navigation Buttons */}
+        <div className="swiper-button-next custom-button"></div>
+        <div className="swiper-button-prev custom-button"></div>
+      </Swiper>
+    </div>
   );
 };
 

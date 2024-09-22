@@ -29,7 +29,8 @@ const SwiperComp = () => {
   ];
 
   return (
-    <Swiper
+    <div className='px-2'>
+      <Swiper
       spaceBetween={30}
       slidesPerView={4}
       breakpoints={{
@@ -45,13 +46,13 @@ const SwiperComp = () => {
     >
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <div className="relative flex flex-col justify-between w-full h-96 rounded-lg overflow-hidden group">
+          <div className="relative flex flex-col justify-between w-full h-[600px] rounded-lg overflow-hidden group">
             <img className="h-full w-full object-cover" src={image} alt={`slide-${index + 1}`} />
             <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-80 transition-opacity duration-400"></div>
             <div className="absolute inset-0 flex flex-col justify-between p-4">
-              <div className="flex-grow flex flex-col justify-center items-start text-white transform transition-transform duration-300 group-hover:-translate-y-24">
-                <h2 className="text-xs md:text-sm lg:text-base font-bold mb-1">{texts[index].title}</h2>
-                <p className="text-xs md:text-sm lg:text-base mb-2 opacity-0 transform translate-y-4 transition-opacity duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              <div className="flex-grow flex flex-col justify-center items-start text-white transform transition-transform duration-300 group-hover:-translate-y-52">
+                <h2 className="text-xs md:text-sm lg:text-lg font-bold mb-3">{texts[index].title}</h2>
+                <p className="text-xs mb-2 opacity-0 transform translate-y-4 transition-opacity duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                   {texts[index].subtitle}
                 </p>
               </div>
@@ -72,7 +73,8 @@ const SwiperComp = () => {
       {/* Custom Navigation Buttons */}
       <div className="swiper-button-next custom-button"></div>
       <div className="swiper-button-prev custom-button"></div>
-    </Swiper>
+    </Swiper> 
+    </div>
   );
 };
 
