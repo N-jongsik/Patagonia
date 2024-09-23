@@ -17,6 +17,7 @@ import RelatedSwiper from "./swiper/RelatedSwiper";
 import ImpactHowSwiper from "./swiper/ImpactHowSwiper";
 import ImpactWhereSwiper from "./swiper/ImpactWhereSwiper";
 import ViewedSwiper from "./swiper/ViewedSwiper";
+import useCustomMove from "../../hooks/useCustomMove";
 
 // const product = {
 //   name: "'73 Skyline Uprisal Hoody",
@@ -770,6 +771,8 @@ function classNames(...classes) {
 }
 
 function DetailComp() {
+  const { moveToCart } = useCustomMove();
+
   const { id } = useParams();
   console.log("i값" + id);
   const products = useSelector(selectProducts); // Redux에서 전체 제품 리스트 가져오기
@@ -1026,14 +1029,15 @@ function DetailComp() {
               </div>
               {/* cart */}
               <div className="mt-4">
-                <NavLink to="/cart">
-                  <button
-                    type="submit"
-                    className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
-                  >
-                    장바구니
-                  </button>
-                </NavLink>
+                <button
+                  type="submit"
+                  className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
+                  onClick={() => {
+                    moveToCart(product.id);
+                  }}
+                >
+                  장바구니
+                </button>
               </div>
               {/* 배송반품+모달 */}
               <div className="mt-4">

@@ -7,7 +7,13 @@ function useCustomMove() {
       pathname: `../detail/${id}`,
     });
   };
-  return { moveToRead };
+
+  const moveToCart = (id) => {
+    navigate({
+      pathname: `../cart`,
+    });
+  };
+  return { moveToRead, moveToCart };
 }
 
 export default useCustomMove;
