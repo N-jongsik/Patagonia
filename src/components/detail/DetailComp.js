@@ -1,9 +1,9 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import "../../index.css";
 import "../../assets/css/reset.css";
@@ -22,6 +22,16 @@ import impact1 from "../../assets/images/detail/impact/impact1.png";
 import impact2 from "../../assets/images/detail/impact/impact2.png";
 import impact3 from "../../assets/images/detail/impact/impact3.jpeg";
 import map from "../../assets/images/detail/impact/map.jpg";
+
+import review0 from "../../assets/images/detail/review/review0.webp";
+import review1 from "../../assets/images/detail/review/review1.webp";
+import review2 from "../../assets/images/detail/review/review2.webp";
+import review3 from "../../assets/images/detail/review/review3.webp";
+import review4 from "../../assets/images/detail/review/review4.webp";
+import review5 from "../../assets/images/detail/review/review5.webp";
+import review6 from "../../assets/images/detail/review/review6.webp";
+import review7 from "../../assets/images/detail/review/review7.jpg";
+
 import DescriptionSwiper from "./swiper/DescriptionSwiper";
 import RelatedSwiper from "./swiper/RelatedSwiper";
 import ImpactHowSwiper from "./swiper/ImpactHowSwiper";
@@ -60,6 +70,16 @@ const product = {
     { src: impact2 },
     { src: impact3 },
     { src: map },
+  ],
+  reviewImage: [
+    { src: review0 },
+    { src: review1 },
+    { src: review2 },
+    { src: review3 },
+    { src: review4 },
+    { src: review5 },
+    { src: review6 },
+    { src: review7 },
   ],
   colors: [
     { name: "Ink Black", class: "bg-black", selectedClass: "ring-gray-950" },
@@ -788,7 +808,159 @@ function DetailComp() {
           </div>
         </div>
       </div>
-      {/* 저 리뷰리스트는 도저히 에반데? 나 못해 ㄹㅇ 못해  */}
+      {/* Review List  */}
+      <div className="relative py-16 px-28">
+        <div>
+          <div className="inline-flex justify-between w-full text-base">
+            <p>포토&동영상 (8)</p>
+            <p>전체보기 &gt; </p>
+          </div>
+          <div className="pt-4 text-0 overflow-hidden min-w-[720px] max-w-screen-2xl">
+            <ul className="flex">
+              {product.reviewImage.map((image, index) => (
+                <li
+                  key={index}
+                  className="list-none cursor-pointer overflow-hidden relative rounded mr-2"
+                >
+                  <img
+                    src={image.src}
+                    className="w-full h-auto rounded"
+                    alt={`review ${index}`}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="py-20">
+          <div className="inline-flex justify-between w-full border-t border-gray-200 items-center h-16">
+            <div className="inline-flex space-x-4 items-center h-full m-0 my-auto">
+              <p className=" p-2 font-bold">추천순</p>
+              <p className="p-2 text-[#bcc2cc]">최신순</p>
+              <p className="p-2 text-[#bcc2cc]">별점순</p>
+            </div>
+            <div className="inline-flex items-center h-full">
+              <p className="p-2">검색</p>
+            </div>
+          </div>
+          <div className="inline-flex justify-start w-full border-t border-gray-200 items-center h-16">
+            <div className="inline-flex items-center h-full mr-2">
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#14161a] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                    별점
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 h-5 w-5 text-gray-400"
+                    />
+                  </MenuButton>
+                </div>
+              </Menu>
+            </div>
+
+            <div className="inline-flex items-center h-full mr-2">
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#14161a] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                    키
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 h-5 w-5 text-gray-400"
+                    />
+                  </MenuButton>
+                </div>
+              </Menu>
+            </div>
+
+            <div className="inline-flex items-center h-full mr-2">
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#14161a] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                    몸무게
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 h-5 w-5 text-gray-400"
+                    />
+                  </MenuButton>
+                </div>
+              </Menu>
+            </div>
+
+            <div className="inline-flex items-center h-full mr-2">
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#14161a] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                    용도
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 h-5 w-5 text-gray-400"
+                    />
+                  </MenuButton>
+                </div>
+              </Menu>
+            </div>
+
+            <div className="inline-flex items-center h-full mr-2">
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#14161a] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                    평소사이즈
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 h-5 w-5 text-gray-400"
+                    />
+                  </MenuButton>
+                </div>
+              </Menu>
+            </div>
+          </div>
+          <div className="inline-flex justify-between w-full border-t border-gray-200 items-center h-16">
+            <div className="inline-flex space-x-4 items-center h-full m-0 my-auto ">
+              <div className="flex items-center">
+                {[0, 1, 2, 3, 4].map((rating) => (
+                  <StarIcon
+                    key={rating}
+                    className={classNames(
+                      reviews.average > rating
+                        ? "text-gray-900"
+                        : "text-gray-200",
+                      "h-5 w-5 flex-shrink-0"
+                    )}
+                    aria-hidden="true"
+                  />
+                ))}
+                <div>
+                  <p className="inline-block align-middle ml-2.5 text-sm font-bold">
+                    아주 좋아요
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="inline-flex items-center h-full">
+              <p className="inline-block align-middle ml-2.5 text-xs text-[#707680]">
+                2023.11.7
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="text-[#14161A] text-xs mb-3">
+              73 스카이라인 약간 빈티지 하면서 심플한게 아주 맘에 들어요
+              파타고니아 화이팅입니다.
+            </p>
+            <div className="mb-2">
+              <img
+                src={product.reviewImage[0].src}
+                alt="review"
+                className="w-32 h-32 rounded"
+              />
+            </div>
+            <div className=" flex mb-2 text-[#707680]">
+              <i class="fa-regular fa-thumbs-up"></i>
+              <p className="px-2">도움돼요 1</p> | <p> 댓글 0</p>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* 연관상품 */}
       <div>
         <div className="relative py-16 px-28">
@@ -815,7 +987,7 @@ function DetailComp() {
             </div>
             {/* <div className="mt-6 w-full"></div> */}
             <div className="flex mt-6 flex-col items-center">
-              <button className="inline-block min-w-40 px-12 py-5 text-2xl font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full">
+              <button className="inline-block min-w-40 px-12 py-5 text-2xl font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full hover:scale-105">
                 상품문의작성
               </button>
             </div>
@@ -950,7 +1122,7 @@ function DetailComp() {
 
         {/* Footer Button */}
         <div className="flex mt-6 flex-col items-center">
-          <button className="inline-block min-w-40 px-12 py-5 text-2xl font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full">
+          <button className="inline-block min-w-40 px-12 py-5 text-2xl font-bold text-white border border-black bg-black transition-transform duration-200 ease-[cubic-bezier(0.235, 0, 0.05, 0.95)] align-middle rounded-full hover:scale-105">
             Our Footprint
           </button>
         </div>
@@ -973,5 +1145,3 @@ function DetailComp() {
 }
 
 export default DetailComp;
-// 정상코드
-// Add5swiper
