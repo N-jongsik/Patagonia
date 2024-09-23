@@ -438,18 +438,12 @@ function DetailComp() {
               </div>
               {/* cart */}
               <div className="mt-4">
-                <button
-                  type="submit"
-                  className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
-                >
-                  장바구니
-                </button>
-              </div>
-              {/* 매장재고확인 */}
-              <div className="mt-4">
-                <NavLink to="/map">
-                  <button className="text-base font-bold text-black cursor-pointer">
-                    매장 재고 확인
+                <NavLink to="/cart">
+                  <button
+                    type="submit"
+                    className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
+                  >
+                    장바구니
                   </button>
                 </NavLink>
               </div>

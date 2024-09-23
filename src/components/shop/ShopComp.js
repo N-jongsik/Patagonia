@@ -22,6 +22,7 @@ import product8 from "../../assets/images/product8.jpg";
 import product9 from "../../assets/images/product9.jpg";
 
 import slide_icon from "../../assets/images/icon-chevron-slider.png";
+import { NavLink } from "react-router-dom";
 
 const navigation = [
   { name: "모든상품", href: "#", current: true },
@@ -536,33 +537,36 @@ function ShopComp() {
                           e.preventDefault();
                         }}
                       >
-                        <div className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                          {/* Image with hover zoom and opacity effect */}
-                          <img
-                            alt={product.imageAlt}
-                            src={product.imageSrc}
-                            className="h-full w-full object-cover object-center product-image transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-80"
-                          />
+                        {/* 매장재고확인 */}
+                        <NavLink to="/detail">
+                          <div className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                            {/* Image with hover zoom and opacity effect */}
+                            <img
+                              alt={product.imageAlt}
+                              src={product.imageSrc}
+                              className="h-full w-full object-cover object-center product-image transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-80"
+                            />
 
-                          {/* Heart icon (visible on hover) */}
-                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                            <button>
-                              <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M12.0398 20.4217C9.43508 17.8138 6.99606 15.3748 4.40603 12.7847C3.20165 11.5875 2.75895 10.2667 2.80296 9.02974C2.84761 7.77503 3.39628 6.55167 4.27244 5.59641C5.14865 4.64109 6.32022 3.98898 7.56451 3.83514C8.79109 3.68348 10.1398 4.00831 11.4248 5.09612L11.9296 5.52346L12.4442 5.108C15.7557 2.43458 20.8659 4.3423 21.1822 8.56343C21.3072 10.2429 20.7751 11.6392 19.5807 12.8301C18.5698 13.8689 17.5278 14.8942 16.4787 15.9263C14.9818 17.3992 13.4705 18.8861 12.0398 20.4217Z"
-                                  stroke="black"
-                                  strokeWidth="1.6"
-                                />
-                              </svg>
-                            </button>
+                            {/* Heart icon (visible on hover) */}
+                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                              <button>
+                                <svg
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M12.0398 20.4217C9.43508 17.8138 6.99606 15.3748 4.40603 12.7847C3.20165 11.5875 2.75895 10.2667 2.80296 9.02974C2.84761 7.77503 3.39628 6.55167 4.27244 5.59641C5.14865 4.64109 6.32022 3.98898 7.56451 3.83514C8.79109 3.68348 10.1398 4.00831 11.4248 5.09612L11.9296 5.52346L12.4442 5.108C15.7557 2.43458 20.8659 4.3423 21.1822 8.56343C21.3072 10.2429 20.7751 11.6392 19.5807 12.8301C18.5698 13.8689 17.5278 14.8942 16.4787 15.9263C14.9818 17.3992 13.4705 18.8861 12.0398 20.4217Z"
+                                    stroke="black"
+                                    strokeWidth="1.6"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
                           </div>
-                        </div>
+                        </NavLink>
                       </a>
 
                       <h3 className="mt-4 text-lg font-bold">{product.name}</h3>
