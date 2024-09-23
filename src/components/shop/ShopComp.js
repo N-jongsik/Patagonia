@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import ReviewStars from "./ReviewStars.jsx";
+import CustomCheckbox from "./CustomCheckbox.jsx";
 
 import {
   Disclosure,
@@ -69,31 +70,44 @@ const category = [
     id: "2",
     category: "사이즈",
     sub_category: "",
-    sub_items: ["XS", "S", "M", "L", "XL", "XXL"],
+    sub_items: [
+      { id: 1, content: "XS" },
+      { id: 2, content: "S" },
+      { id: 3, content: "M" },
+      { id: 4, content: "L" },
+      { id: 5, content: "XL" },
+      { id: 6, content: "XXL" },
+    ],
   },
   {
     id: "3",
     category: "색상",
     sub_category: "",
-    sub_items: ["하위 카테고리 1", "하위 카테고리 2"],
+    sub_items: [],
   },
   {
     id: "4",
     category: "핏",
     sub_category: "",
-    sub_items: ["Regular Fit", "Relaxed Fit"],
+    sub_items: [
+      { id: 7, content: "Regular Fit" },
+      { id: 8, content: "Relaxed Fit" },
+    ],
   },
   {
     id: "5",
     category: "제품 특징",
     sub_category: "",
-    sub_items: ["후드"],
+    sub_items: [{ id: 9, content: "후드" }],
   },
   {
     id: "6",
     category: "소재 및 생산 과정",
     sub_category: "",
-    sub_items: ["리사이클 소재 사용", "햄프/마"],
+    sub_items: [
+      { id: 10, content: "리사이클 소재 사용" },
+      { id: 11, content: "햄프/마" },
+    ],
   },
   {
     id: "7",
@@ -353,6 +367,15 @@ function ShopComp() {
 
   const [visibleProducts, setVisibleProducts] = useState(11);
 
+  const [checkedCategories, setCheckedCategories] = useState({});
+
+  const handleCheckboxChange = (id) => {
+    setCheckedCategories((prev) => ({
+      ...prev,
+      [id]: !prev[id], // 해당 카테고리의 체크 상태를 토글
+    }));
+  };
+
   const loadMoreProducts = () => {
     setVisibleProducts((prev) => prev + 4);
   };
@@ -523,47 +546,17 @@ function ShopComp() {
                             "소재 및 생산 과정",
                           ].includes(category.category) ? (
                             // Render checkboxes for specific categories
-                            category.sub_items.map((sub_item, index) => (
-                              <div
-                                className="flex items-center space-x-2 cursor-pointer sub-item px-2 py-2 font-bold"
-                                onClick={() =>
-                                  document
-                                    .getElementById(
-                                      `checkbox-${category.id}-${index}`
-                                    )
-                                    .click()
-                                }
-                              >
-                                <label>
-                                  <input
-                                    type="checkbox"
-                                    id={`checkbox-${category.id}-${index}`}
-                                    className="hidden peer"
-                                  />
-                                </label>
-                                <div
-                                  id={`checkbox-${category.id}-${index}`}
-                                  className="w-5 h-5 bg-gray-300 rounded-sm flex items-center justify-center"
-                                >
-                                  {/* 체크 표시 */}
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5 peer-checked:block hidden" // 체크되었을 때만 보이도록
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth="4"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M5 13l4 4L19 7"
-                                    />
-                                  </svg>
-                                </div>
-
-                                <span className="text-sm font-bold">
-                                  {sub_item}
+                            category.sub_items.map((sub_item) => (
+                              <div className="flex justify-start sub-item py-2 px-1">
+                                <CustomCheckbox
+                                  key={sub_item.id}
+                                  checked={!!checkedCategories[sub_item.id]} // 체크 상태
+                                  onChange={() =>
+                                    handleCheckboxChange(sub_item.id)
+                                  } // 체크 상태 변경 핸들러
+                                />
+                                <span className="text-sm font-bold ml-4">
+                                  {sub_item.content}
                                 </span>
                               </div>
                             ))
