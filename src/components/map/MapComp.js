@@ -598,26 +598,29 @@ function MapComp() {
   const handleStoreClick = (addr) => {
     const store = patagonia_store.find((s) => s.addr === addr);
     if (store && map) {
-      setSelectedStore(store);
       const position = new kakao.maps.LatLng(
         parseFloat(store.latitude),
         parseFloat(store.longitude)
       );
 
-      map.setCenter(position); // 지도 중심 이동
+      map.setCenter(position); // Center the map on the selected store
 
-      // 모든 마커를 숨기고 선택된 마커만 보이도록 설정
+      // Loop through markers, show the selected marker and hide others
       markers.forEach((marker) => {
         if (marker.getPosition().equals(position)) {
-          marker.setMap(map); // 선택된 마커 표시
+          marker.setMap(map); // Show the selected marker
         } else {
-          marker.setMap(null); // 다른 마커 숨기기
+          marker.setMap(null); // Hide others
         }
       });
+
+      setSelectedStore(store);
+
+      // Optional: Reset after a timeout
+      setTimeout(() => {
+        setSelectedStore(null);
+      }, 3000);
     }
-    setTimeout(() => {
-      setSelectedStore(null); // 다시 null값으로 초기화
-    }, 3000);
   };
 
   useEffect(() => {
@@ -804,7 +807,6 @@ function MapComp() {
                   </div>
                   <div className="flex flex-col justify-center min-w-[60px] pl-4 border-l border-[#d9d4cf] leading-[1.15] text-center box-border">
                     <span className="block w-4 h-4 mx-auto mb-2 map_distance"></span>
-                    <p className="text-black text-center">1.0km</p>
                   </div>
                 </div>
                 <div
@@ -853,7 +855,6 @@ function MapComp() {
                     </div>
                     <div className="flex flex-col justify-center min-w-[60px] pl-4 border-l border-[#d9d4cf] leading-[1.15] text-center box-border">
                       <span className="block w-4 h-4 mx-auto mb-2 map_distance"></span>
-                      <p className="text-black text-center">1.0km</p>
                     </div>
                   </div>
                   <div
