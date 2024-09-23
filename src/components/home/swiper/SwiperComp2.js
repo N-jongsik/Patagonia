@@ -25,7 +25,7 @@ const SwiperComp2 = () => {
   ];
 
   return (
-    <div className='px-2'>
+    <div className='px-10'>
         <Swiper
         spaceBetween={30}
         slidesPerView={4}

@@ -29,7 +29,13 @@ const SwiperComp = () => {
   ];
 
   return (
-    <div className='px-2'>
+    <div className='px-10'>
+      <div className='flex pb-5 px-5 items-end'>
+        <h2 className='text-3xl px-2 font-extrabold'>
+        최신글
+          </h2>
+          <a href='#' className='font-semibold'>모두보기</a>
+      </div>
       <Swiper
       spaceBetween={30}
       slidesPerView={4}

@@ -89,7 +89,7 @@ function MainComp() {
     </div>
 
 
-    <div className="mb-7"> {/* 2번째 배너 사진 */}
+    <div className="mb-16"> {/* 2번째 배너 사진 */}
       <div className="relative">
         <img src={banner} className="w-full h-[1000px] object-cover" alt="메인 배너" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-2 rounded-md pb-5">
@@ -156,11 +156,11 @@ function MainComp() {
   </div>
 
 
-	<div className="mb-10">{/* 스와이퍼1 컴포넌트 */}
+	<div className="mb-28">{/* 스와이퍼1 컴포넌트 */}
 		<SwiperComp/>
 	</div>
 
-	<div className="mb-7"> {/* 4번째 배너 사진 */}
+	<div className="mb-28"> {/* 4번째 배너 사진 */}
     <div className="relative">
       <img src={final_banner} className="w-full h-[1000px] object-cover" alt="멤버십 혜택 안내 배너" />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-2 rounded-md pb-5">

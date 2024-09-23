@@ -9,66 +9,48 @@ const Footer = () => {
   return (
     <footer id="footer" className="fb__footer bg-black text-white py-10">
       {/* Top Section */}
-      <div className="ptg__footer pb-8 border-b border-gray-700 px-10">
-  <h4 className="hidden">Footer</h4>
-  <ul className="flex flex-wrap justify-center">
-    <li className="py-3 px-4 w-1/5 text-left">
-      <div>
-        <img
-          className="h-16 w-16 pb-4"
-          src={foot2}
-          alt="Ironclad"
-        />
-        <h5 className="font-black pb-4">모든 제품을 보증합니다.</h5>
-        <a href="#" className="text-xs block hover:underline">철갑 보증</a>
+      <div className="ptg__footer pb-8 border-b border-gray-700 px-4 sm:px-10">
+        <h4 className="hidden">Footer</h4>
+        <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 justify-center">
+          <li className="py-3 px-28 sm:px-4 text-left ">
+          
+            <div>
+              <img className="h-16 w-16 pb-4" src={foot2} alt="Ironclad" />
+              <h5 className="font-black pb-4">모든 제품을 보증합니다.</h5>
+              <a href="#" className="text-xs block hover:underline">철갑 보증</a>
+            </div>
+          </li>
+          <li className="py-3 px-28 sm:px-4 text-left">
+            <div>
+              <img className="h-16 w-16 pb-4" src={foot1} alt="Environment Responsibility" />
+              <h5 className="font-black pb-4">사회와 환경에 책임을 다합니다.</h5>
+              <a href="#" className="text-xs block hover:underline">환경 발자국</a>
+            </div>
+          </li>
+          <li className="py-3 px-28 sm:px-4 text-left">
+            <div>
+              <img className="h-16 w-16 pb-4" src={foot3} alt="Supporting Environment Groups" />
+              <h5 className="font-black pb-4">환경 단체를 지원합니다.</h5>
+              <a href="#" className="text-xs block hover:underline">파타고니아 액션웍스</a>
+            </div>
+          </li>
+          <li className="py-3 px-28 sm:px-4 text-left">
+            <div>
+              <img className="h-16 w-16 pb-4" src={foot5} alt="Product Longevity" />
+              <h5 className="font-black pb-4">제품을 오래 쓸 수 있습니다.</h5>
+              <a href="#" className="text-xs block hover:underline">원웨어</a>
+            </div>
+          </li>
+          <li className="py-3 px-28 sm:px-4 text-left">
+            <div>
+              <img className="h-16 w-16 pb-4" src={foot4} alt="Donate to Earth" />
+              <h5 className="font-black pb-4">수익을 지구에 바칩니다.</h5>
+              <a href="#" className="text-xs block hover:underline">이본 쉬나드의 편지</a>
+            </div>
+          </li>
+        </ul>
       </div>
-    </li>
-    <li className="py-3 px-4 w-1/5 text-left">
-      <div>
-        <img
-          className="h-16 w-16 pb-4"
-          src={foot1}
-          alt="Environment Responsibility"
-        />
-        <h5 className="font-black pb-4">사회와 환경에 책임을 다합니다.</h5>
-        <a href="#" className="text-xs block hover:underline">환경 발자국</a>
-      </div>
-    </li>
-    <li className="py-3 px-4 w-1/5 text-left">
-      <div>
-        <img
-          className="h-16 w-16 pb-4"
-          src={foot3}
-          alt="Supporting Environment Groups"
-        />
-        <h5 className="font-black pb-4">환경 단체를 지원합니다.</h5>
-        <a href="#" className="text-xs block hover:underline">파타고니아 액션웍스</a>
-      </div>
-    </li>
-    <li className="py-3 px-4 w-1/5 text-left">
-      <div>
-        <img
-          className="h-16 w-16 pb-4"
-          src={foot5}
-          alt="Product Longevity"
-        />
-        <h5 className="font-black pb-4">제품을 오래 쓸 수 있습니다.</h5>
-        <a href="#" className="text-xs block hover:underline">원웨어</a>
-      </div>
-    </li>
-    <li className="py-3 px-4 w-1/5 text-left">
-      <div>
-        <img
-          className="h-16 w-16 pb-4"
-          src={foot4}
-          alt="Donate to Earth"
-        />
-        <h5 className="font-black pb-4">수익을 지구에 바칩니다.</h5>
-        <a href="#" className="text-xs block hover:underline">이본 쉬나드의 편지</a>
-      </div>
-    </li>
-  </ul>
-</div>
+
 
 
 
