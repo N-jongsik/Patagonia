@@ -1,5 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import ReviewStars from "./ReviewStars.jsx";
+import { Link } from "react-router-dom";
+import useCustomMove from "../../hooks/useCustomMove.js";
+import CustomCheckbox from "./CustomCheckbox.jsx";
+
 import {
   Disclosure,
   DisclosureButton,
@@ -20,7 +25,12 @@ import product6 from "../../assets/images/product6.jpg";
 import product7 from "../../assets/images/product7.jpg";
 import product8 from "../../assets/images/product8.jpg";
 import product9 from "../../assets/images/product9.jpg";
-
+import product10 from "../../assets/images/product10.jpg";
+import product11 from "../../assets/images/product11.jpg";
+import product12 from "../../assets/images/product12.jpg";
+import product13 from "../../assets/images/product13.jpg";
+import product14 from "../../assets/images/product14.jpg";
+import product15 from "../../assets/images/product15.jpg";
 import slide_icon from "../../assets/images/icon-chevron-slider.png";
 
 const navigation = [
@@ -62,31 +72,44 @@ const category = [
     id: "2",
     category: "사이즈",
     sub_category: "",
-    sub_items: ["XS", "S", "M", "L", "XL", "XXL"],
+    sub_items: [
+      { id: 1, content: "XS" },
+      { id: 2, content: "S" },
+      { id: 3, content: "M" },
+      { id: 4, content: "L" },
+      { id: 5, content: "XL" },
+      { id: 6, content: "XXL" },
+    ],
   },
   {
     id: "3",
     category: "색상",
     sub_category: "",
-    sub_items: ["하위 카테고리 1", "하위 카테고리 2"],
+    sub_items: [],
   },
   {
     id: "4",
     category: "핏",
     sub_category: "",
-    sub_items: ["Regular Fit", "Relaxed Fit"],
+    sub_items: [
+      { id: 7, content: "Regular Fit" },
+      { id: 8, content: "Relaxed Fit" },
+    ],
   },
   {
     id: "5",
     category: "제품 특징",
     sub_category: "",
-    sub_items: ["후드"],
+    sub_items: [{ id: 9, content: "후드" }],
   },
   {
     id: "6",
     category: "소재 및 생산 과정",
     sub_category: "",
-    sub_items: ["리사이클 소재 사용", "햄프/마"],
+    sub_items: [
+      { id: 10, content: "리사이클 소재 사용" },
+      { id: 11, content: "햄프/마" },
+    ],
   },
   {
     id: "7",
@@ -109,6 +132,8 @@ const products = [
       { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
       { name: "Purple", class: "bg-cb-50", selectedClass: "ring-gray-900" },
     ],
+    rating: 5,
+    reviewCount: 23,
   },
   {
     id: 2,
@@ -121,6 +146,8 @@ const products = [
     colors: [
       { name: "Brown", class: "bg-cb-100", selectedClass: "ring-gray-900" },
     ],
+    rating: 0,
+    reviewCount: 0,
   },
   {
     id: 3,
@@ -135,6 +162,8 @@ const products = [
       { name: "Orange", class: "bg-cb-300", selectedClass: "ring-gray-900" },
       { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
     ],
+    rating: 5,
+    reviewCount: 9,
   },
   {
     id: 4,
@@ -149,6 +178,8 @@ const products = [
       { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
       { name: "Green", class: "bg-cb-500", selectedClass: "ring-gray-900" },
     ],
+    rating: 5,
+    reviewCount: 17,
   },
   {
     id: 5,
@@ -163,6 +194,8 @@ const products = [
       { name: "Purple", class: "bg-cb-50", selectedClass: "ring-gray-900" },
       { name: "Green", class: "bg-cb-500", selectedClass: "ring-gray-900" },
     ],
+    rating: 4.5,
+    reviewCount: 14,
   },
   {
     id: 6,
@@ -175,19 +208,23 @@ const products = [
     colors: [
       { name: "Yellow", class: "bg-cb-600", selectedClass: "ring-gray-900" },
     ],
+    rating: 5,
+    reviewCount: 2,
   },
   {
     id: 7,
-    name: "'73 Skyline Uprisal Hoody",
-    sub_name: "73 스카이라인 업라이절 후디",
+    name: "W's Boulder Fork Rain Jacket",
+    sub_name: "우먼즈 볼더 포크 레인 재킷",
     href: "#",
-    price: "159,000원",
+    price: "429,000원",
     imageSrc: product7,
     imageAlt: "",
     colors: [
-      { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-      { name: "Purple", class: "bg-cb-50", selectedClass: "ring-gray-900" },
+      { name: "Black", class: "bg-cb-1050", selectedClass: "ring-gray-900" },
+      { name: "Purple", class: "bg-cb-1100", selectedClass: "ring-gray-900" },
     ],
+    rating: 5,
+    reviewCount: 1,
   },
   {
     id: 8,
@@ -198,9 +235,11 @@ const products = [
     imageSrc: product8,
     imageAlt: "",
     colors: [
-      { name: "Green", class: "bg-cb-700", selectedClass: "ring-gray-900" },
-      { name: "Green", class: "bg-cb-800", selectedClass: "ring-gray-900" },
+      { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
+      { name: "Yellow", class: "bg-cb-1150", selectedClass: "ring-gray-900" },
     ],
+    rating: 0,
+    reviewCount: 0,
   },
   {
     id: 9,
@@ -216,6 +255,99 @@ const products = [
       { name: "Green", class: "bg-cb-800", selectedClass: "ring-gray-900" },
       { name: "Brown", class: "bg-cb-900", selectedClass: "ring-gray-900" },
     ],
+    rating: 4.5,
+    reviewCount: 13,
+  },
+  {
+    id: 10,
+    name: "Long-Sleeved Strataspire Responsibili-Tee®",
+    sub_name: "롱-슬리브드 스트라타스파이어 리스판서빌리-티",
+    href: "#",
+    price: "79,000원",
+    imageSrc: product10,
+    imageAlt: "",
+    colors: [
+      { name: "Green", class: "bg-cb-700", selectedClass: "ring-gray-900" },
+      { name: "Brown", class: "bg-gray-100", selectedClass: "ring-gray-900" },
+      { name: "Green", class: "bg-cb-800", selectedClass: "ring-gray-900" },
+      { name: "Brown", class: "bg-cb-900", selectedClass: "ring-gray-900" },
+    ],
+    rating: 5,
+    reviewCount: 1,
+  },
+
+  {
+    id: 11,
+    name: "W's CTA Easy-Cut Organic T-Shirt",
+    sub_name: "우먼즈 콜 투 액션 이지 컷 오가닉 티셔츠",
+    href: "#",
+    price: "69,000원",
+    imageSrc: product11,
+    imageAlt: "",
+    colors: [
+      { name: "Yellow", class: "bg-cb-1200", selectedClass: "ring-gray-900" },
+    ],
+    rating: 0,
+    reviewCount: 0,
+  },
+  {
+    id: 12,
+    name: "W's Lightweight Synchilla® Snap-T® Pullover",
+    sub_name: "우먼즈 라이트웨이트 신칠라 스냅 티 풀오버",
+    href: "#",
+    price: "199,000원",
+    imageSrc: product12,
+    imageAlt: "",
+    colors: [
+      { name: "Gray", class: "bg-cb-1250", selectedClass: "ring-gray-900" },
+      { name: "Gray", class: "bg-cb-1300", selectedClass: "ring-gray-900" },
+    ],
+    rating: 5,
+    reviewCount: 4,
+  },
+  {
+    id: 13,
+    name: "W's Classic Retro-X® Vest",
+    sub_name: "우먼즈 클래식 레트로-X 베스트",
+    href: "#",
+    price: "259,000원",
+    imageSrc: product13,
+    imageAlt: "",
+    colors: [
+      { name: "Yellow", class: "bg-cb-1350", selectedClass: "ring-gray-900" },
+      { name: "Yellow", class: "bg-cb-1400", selectedClass: "ring-gray-900" },
+    ],
+    rating: 5,
+    reviewCount: 22,
+  },
+  {
+    id: 14,
+    name: "Natural Blend Retro Cardigan",
+    sub_name: "내추럴 블렌드 레트로 카디건",
+    href: "#",
+    price: "599,000원",
+    imageSrc: product14,
+    imageAlt: "",
+    colors: [
+      { name: "Blue", class: "bg-cb-1450", selectedClass: "ring-gray-900" },
+    ],
+    rating: 4.5,
+    reviewCount: 16,
+  },
+  {
+    id: 15,
+    name: "W's R1® Thermal Full-Zip Hoody",
+    sub_name: "우먼즈 R1 서멀 풀-집 후디",
+    href: "#",
+    price: "299,000원",
+    imageSrc: product15,
+    imageAlt: "",
+    colors: [
+      { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
+      { name: "Purple", class: "bg-cb-1500", selectedClass: "ring-gray-900" },
+    ],
+    rating: 0,
+    reviewCount: 0,
   },
 ];
 
@@ -235,6 +367,21 @@ function ShopComp() {
   const [selectedColor, setSelectedColor] = useState(product_color.colors[0]);
   const [openCategoryId, setOpenCategoryId] = useState(null);
 
+  const [visibleProducts, setVisibleProducts] = useState(11);
+
+  const [checkedCategories, setCheckedCategories] = useState({});
+
+  const handleCheckboxChange = (id) => {
+    setCheckedCategories((prev) => ({
+      ...prev,
+      [id]: !prev[id], // 해당 카테고리의 체크 상태를 토글
+    }));
+  };
+
+  const loadMoreProducts = () => {
+    setVisibleProducts((prev) => prev + 4);
+  };
+
   const toggleSubCategory = (id) => {
     setOpenCategoryId((prevId) => (prevId === id ? null : id));
   };
@@ -245,6 +392,10 @@ function ShopComp() {
       [productId]: color,
     }));
   };
+
+  const handleListToDeatil = (id) => {};
+
+  const { moveToRead } = useCustomMove();
 
   return (
     <>
@@ -401,47 +552,17 @@ function ShopComp() {
                             "소재 및 생산 과정",
                           ].includes(category.category) ? (
                             // Render checkboxes for specific categories
-                            category.sub_items.map((sub_item, index) => (
-                              <div
-                                className="flex items-center space-x-2 cursor-pointer sub-item px-2 py-2 font-bold"
-                                onClick={() =>
-                                  document
-                                    .getElementById(
-                                      `checkbox-${category.id}-${index}`
-                                    )
-                                    .click()
-                                }
-                              >
-                                <label>
-                                  <input
-                                    type="checkbox"
-                                    id={`checkbox-${category.id}-${index}`}
-                                    className="hidden peer"
-                                  />
-                                </label>
-                                <div
-                                  id={`checkbox-${category.id}-${index}`}
-                                  className="w-5 h-5 bg-gray-300 rounded-sm flex items-center justify-center"
-                                >
-                                  {/* 체크 표시 */}
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5 peer-checked:block hidden" // 체크되었을 때만 보이도록
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth="4"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M5 13l4 4L19 7"
-                                    />
-                                  </svg>
-                                </div>
-
-                                <span className="text-sm font-bold">
-                                  {sub_item}
+                            category.sub_items.map((sub_item) => (
+                              <div className="flex justify-start sub-item py-2 px-1">
+                                <CustomCheckbox
+                                  key={sub_item.id}
+                                  checked={!!checkedCategories[sub_item.id]} // 체크 상태
+                                  onChange={() =>
+                                    handleCheckboxChange(sub_item.id)
+                                  } // 체크 상태 변경 핸들러
+                                />
+                                <span className="text-sm font-bold ml-4">
+                                  {sub_item.content}
                                 </span>
                               </div>
                             ))
@@ -525,26 +646,22 @@ function ShopComp() {
                 <h2 className="sr-only">Products</h2>
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
-                  {products.map((product) => (
+                  {products.slice(0, visibleProducts).map((product) => (
                     <div
                       key={product.id}
                       className="group relative product-image-container"
                     >
-                      <a
-                        href={product.href}
-                        onClick={(e) => {
-                          e.preventDefault();
+                      <div
+                        onClick={() => {
+                          moveToRead(product.id);
                         }}
                       >
                         <div className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                          {/* Image with hover zoom and opacity effect */}
                           <img
                             alt={product.imageAlt}
                             src={product.imageSrc}
                             className="h-full w-full object-cover object-center product-image transition-transform duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-80"
                           />
-
-                          {/* Heart icon (visible on hover) */}
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                             <button>
                               <svg
@@ -563,14 +680,13 @@ function ShopComp() {
                             </button>
                           </div>
                         </div>
-                      </a>
+                      </div>
 
-                      <h3 className="mt-4 text-lg font-bold">{product.name}</h3>
-                      <p className="mt-1 text-sm text-gray-700 font-medium">
+                      <h3 className="mt-4 text-xl font-bold">{product.name}</h3>
+                      <p className="mt-1 ml-1 text-md text-gray-700 font-bold">
                         {product.sub_name}
                       </p>
 
-                      {/* Color button */}
                       <div className="mt-4 ml-2">
                         <fieldset aria-label="Choose a color" className="mt-4">
                           <RadioGroup
@@ -602,13 +718,29 @@ function ShopComp() {
                           </RadioGroup>
                         </fieldset>
                       </div>
-                      <p className="mt-3 text-sm font-bold text-gray-900">
+                      <p className="mt-3 ml-1 text-lg font-bold text-gray-900">
                         {product.price}
                       </p>
+
+                      <ReviewStars
+                        rating={product.rating}
+                        reviewCount={product.reviewCount}
+                      />
                     </div>
                   ))}
                 </div>
               </div>
+              {visibleProducts < products.length && (
+                <div className="flex justify-center items-center mr-28">
+                  <button
+                    type="button"
+                    onClick={loadMoreProducts}
+                    className="font-bold text-lg text-white ml-8 bg-gray-900 mt-4 px-20 py-4 rounded-full hover:scale-110 transition-transform duration-300"
+                  >
+                    더보기
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

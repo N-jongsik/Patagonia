@@ -7,7 +7,9 @@ function LayoutComp() {
   return (
     <>
       <NavbarComp />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <FooterComp />
     </>
   );

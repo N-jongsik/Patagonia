@@ -595,142 +595,33 @@ function MapComp() {
     }
   };
 
-  // const handleStoreClick = (addr) => {
-  //   const store = patagonia_store.find((store) => store.addr === addr);
-  //   if (store) {
-  //     setSelectedStore(store);
-  //   }
-  //   setTimeout(() => {
-  //     setSelectedStore(null); // 다시 null값으로 초기화
-  //   }, 5000);
-
-  //   // 지도 이동 및 마커 표시
-  //   const position = new kakao.maps.LatLng(
-  //     parseFloat(store.latitude),
-  //     parseFloat(store.longitude)
-  //   );
-
-  //   // 지도 이동
-  //   map.setCenter(position); // 여기서 map은 useEffect 내에서 생성된 map 객체입니다
-
-  //   // 마커 표시 (이미 생성된 마커가 있을 경우)
-  //   markers.forEach((marker) => {
-  //     if (marker.getPosition().equals(position)) {
-  //       marker.setMap(map); // 해당 마커를 지도에 표시
-  //     } else {
-  //       marker.setMap(null); // 다른 마커는 숨김
-  //     }
-  //   });
-  // };
   const handleStoreClick = (addr) => {
     const store = patagonia_store.find((s) => s.addr === addr);
     if (store && map) {
-      setSelectedStore(store);
       const position = new kakao.maps.LatLng(
         parseFloat(store.latitude),
         parseFloat(store.longitude)
       );
 
-      map.setCenter(position); // 지도 중심 이동
+      map.setCenter(position); // Center the map on the selected store
 
-      // 모든 마커를 숨기고 선택된 마커만 보이도록 설정
+      // Loop through markers, show the selected marker and hide others
       markers.forEach((marker) => {
         if (marker.getPosition().equals(position)) {
-          marker.setMap(map); // 선택된 마커 표시
-          console.log(2222222222222);
+          marker.setMap(map); // Show the selected marker
         } else {
-          marker.setMap(null); // 다른 마커 숨기기
-          console.log("ㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅ");
+          marker.setMap(null); // Hide others
         }
       });
+
+      setSelectedStore(store);
+
+      // Optional: Reset after a timeout
+      setTimeout(() => {
+        setSelectedStore(null);
+      }, 3000);
     }
-    setTimeout(() => {
-      setSelectedStore(null); // 다시 null값으로 초기화
-    }, 3000);
   };
-
-  // useEffect(() => {
-  //   const mapContainer = document.getElementById("map"), // 지도를 표시할 div
-  //     mapOption = {
-  //       center: new kakao.maps.LatLng(37.5193278, 127.0236615), // 지도의 중심좌표
-  //       level: 7, // 지도의 확대 레벨
-  //     };
-
-  //   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-  //   const map = new kakao.maps.Map(mapContainer, mapOption);
-
-  //   var positions = patagonia_store.map((store) => ({
-  //     title: store.name,
-  //     addr: store.addr,
-  //     latlng: new kakao.maps.LatLng(
-  //       parseFloat(store.latitude),
-  //       parseFloat(store.longitude)
-  //     ),
-  //   }));
-
-  //   // 마커 이미지의 이미지 주소입니다
-  //   var imageSrc = markerImageSrc;
-
-  //   const markers = [];
-
-  //   // 인포윈도우를 하나만 생성하여 재사용합니다
-  //   var infowindow = new kakao.maps.InfoWindow({
-  //     removable: false, // X 버튼 없이
-  //   });
-
-  //   for (var i = 0; i < positions.length; i++) {
-  //     // 마커 이미지의 이미지 크기 입니다
-  //     var imageSize = new kakao.maps.Size(24, 35);
-
-  //     // 마커 이미지를 생성합니다
-  //     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-  //     // 모든 마커를 생성하고 markers 배열에 저장
-  //     positions.forEach((position) => {
-  //       var imageSize = new kakao.maps.Size(24, 35);
-  //       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-  //       var marker = new kakao.maps.Marker({
-  //         map: map,
-  //         position: position.latlng,
-  //         title: position.title,
-  //         addr: position.addr,
-  //         image: markerImage,
-  //         clickable: true,
-  //       });
-
-  //       // 각 마커에 클릭 이벤트를 등록
-  //       kakao.maps.event.addListener(marker, "click", function () {
-  //         var iwContent = `<div style="padding: 20px; text-align: center; white-space: nowrap;"><strong>${position.title}</strong></div>`;
-  //         infowindow.setContent(iwContent);
-  //         infowindow.open(map, marker);
-
-  //         // 선택된 마커의 정보를 storeInfo에 저장
-  //         setStoreInfo([{ title: position.title, addr: position.addr }]);
-  //       });
-
-  //       markers.push(marker); // 모든 마커를 배열에 저장
-  //     });
-
-  //     // 지도의 영역이 변경될 때(확대/축소/이동)마다 호출될 함수
-  //     const updateMarkersInView = () => {
-  //       const bounds = map.getBounds(); // 현재 지도 영역의 경계값을 가져옴
-  //       const visibleMarkers = positions.filter((position) => {
-  //         const latLng = position.latlng;
-  //         return bounds.contain(latLng); // 현재 지도 영역에 포함된 마커들만 필터링
-  //       });
-
-  //       setStoreInfo(visibleMarkers); // 보이는 마커들의 정보를 저장
-  //     };
-
-  //     // 지도 이동/확대/축소 이벤트 등록
-  //     kakao.maps.event.addListener(map, "zoom_changed", updateMarkersInView);
-  //     kakao.maps.event.addListener(map, "dragend", updateMarkersInView);
-
-  //     // 초기 로딩 시에도 보이는 마커 업데이트
-  //     updateMarkersInView();
-  //   }
-  // }, []);
 
   useEffect(() => {
     const mapContainer = document.getElementById("map");
@@ -916,7 +807,6 @@ function MapComp() {
                   </div>
                   <div className="flex flex-col justify-center min-w-[60px] pl-4 border-l border-[#d9d4cf] leading-[1.15] text-center box-border">
                     <span className="block w-4 h-4 mx-auto mb-2 map_distance"></span>
-                    <p className="text-black text-center">1.0km</p>
                   </div>
                 </div>
                 <div
@@ -965,7 +855,6 @@ function MapComp() {
                     </div>
                     <div className="flex flex-col justify-center min-w-[60px] pl-4 border-l border-[#d9d4cf] leading-[1.15] text-center box-border">
                       <span className="block w-4 h-4 mx-auto mb-2 map_distance"></span>
-                      <p className="text-black text-center">1.0km</p>
                     </div>
                   </div>
                   <div
