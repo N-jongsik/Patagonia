@@ -40,7 +40,7 @@ const root = createBrowserRouter([
         ),
       },
       {
-        path: "detail",
+        path: "detail/:id",
         element: (
           <Suspense fallback={loading}>
             <Detail />
