@@ -562,7 +562,21 @@ function MapComp() {
     (store) => store.addr.slice(0, 2) === selectedCity
   );
 
-  const [storeInfo, setStoreInfo] = useState([]);
+  const [storeInfo, setStoreInfo] = useState(patagonia_store);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchFilter, setSearchFilter] = useState([]);
+
+  const handleInputChange = (e) => {
+    const input = e.target.value;
+    setSearchTerm(input);
+
+    const filtered = patagonia_store.filter((store) => {
+      return store.addr.includes(input);
+    });
+    setSearchFilter(filtered);
+  };
+
+  // const displayedStores = searchTerm ? searchFilter : storeInfo;
 
   useEffect(() => {
     const mapContainer = document.getElementById("map"), // 지도를 표시할 div
@@ -646,34 +660,34 @@ function MapComp() {
       updateMarkersInView();
 
       // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커를 표시할 위치
-        title: positions[i].title, // 마커의 타이틀
-        addr: positions[i].addr, //마커의 주소
-        image: markerImage, // 마커 이미지
-        clickable: true, // 마커를 클릭할 수 있도록 설정
-      });
+      // var marker = new kakao.maps.Marker({
+      //   map: map, // 마커를 표시할 지도
+      //   position: positions[i].latlng, // 마커를 표시할 위치
+      //   title: positions[i].title, // 마커의 타이틀
+      //   addr: positions[i].addr, //마커의 주소
+      //   image: markerImage, // 마커 이미지
+      //   clickable: true, // 마커를 클릭할 수 있도록 설정
+      // });
 
       // 마커 클릭 이벤트를 등록합니다 (클로저 문제 해결을 위해 즉시 실행 함수 사용)
-      (function (marker, title, addr) {
-        kakao.maps.event.addListener(marker, "click", function () {
-          // 마커 클릭 시 인포윈도우 표시
-          var iwContent = `<div style="padding:20px; width:250px; text-align:center;"><strong>${title}</strong></div>`;
-          infowindow.setContent(iwContent);
-          infowindow.open(map, marker);
+      // (function (marker, title, addr) {
+      //   kakao.maps.event.addListener(marker, "click", function () {
+      //     // 마커 클릭 시 인포윈도우 표시
+      //     var iwContent = `<div style="padding:20px; width:250px; text-align:center;"><strong>${title}</strong></div>`;
+      //     infowindow.setContent(iwContent);
+      //     infowindow.open(map, marker);
 
-          // storeInfo에 해당 마커의 타이틀을 저장
-          setStoreInfo({ title, addr });
-        });
-      })(marker, positions[i].title, positions[i].addr); // 즉시 실행 함수로 title 값을 캡처하여 각 마커에 대한 클릭 이벤트 생성
+      //     // storeInfo에 해당 마커의 타이틀을 저장
+      //     setStoreInfo({ title, addr });
+      //   });
+      // })(marker, positions[i].title, positions[i].addr); // 즉시 실행 함수로 title 값을 캡처하여 각 마커에 대한 클릭 이벤트 생성
     }
   }, []);
 
   return (
     <>
       <div className="flex">
-        <div className="container" style={{ width: "25%", height: "100vh" }}>
+        <div className="container w-full md:w-1/4 h-screen">
           <div
             className="bg-black relative"
             style={{ height: "9.7rem", padding: "1.8rem 1rem" }}
@@ -691,6 +705,8 @@ function MapComp() {
               ></span>
               <input
                 type="text"
+                value={searchTerm}
+                onChange={handleInputChange}
                 style={{
                   color: "#a9a9a9",
                   borderRadius: "2.5rem",
@@ -700,8 +716,39 @@ function MapComp() {
                   background: "#fafafa",
                   transition: "background 250ms ease-out",
                 }}
-                className="w-full pr-6"
+                className="w-full pr-6 mb-2"
               />
+
+              {searchTerm && (
+                <div className="block left-4 top-32 w-full h-80 bg-white overflow-y-auto shadow-[0_0_14px_rgba(0,0,0,0.3)]">
+                  {searchFilter.length > 0 ? (
+                    searchFilter.map((store, index) => {
+                      const { addr } = store;
+                      const parts = addr.split(new RegExp(`(${searchTerm})`)); // searchTerm을 기준으로 분리
+                      return (
+                        <p
+                          key={index}
+                          className="w-full font-normal cursor-pointer px-6 py-7 border-b border-[#d4cec9] text-[#837c77] text-lg"
+                        >
+                          {parts.map((part, i) =>
+                            part === searchTerm ? (
+                              <strong key={i} className="text-black">
+                                {part}
+                              </strong> // 검색한 단어만 강조
+                            ) : (
+                              part // 나머지 부분은 그냥 출력
+                            )
+                          )}
+                        </p>
+                      );
+                    })
+                  ) : (
+                    <p className="text-black flex justify-center items-center font-bold h-full text-xl">
+                      매장이 없습니다
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -709,14 +756,14 @@ function MapComp() {
             style={{
               padding: "1rem",
               background: "#f7f6f5",
-              height: "83.3vh",
+              height: "77.7vh",
               overflowY: "auto",
             }}
           >
             {storeInfo.map((store, index) => (
               <div
                 key={index}
-                className="flex items-stretch flex-wrap p-8 bg-white cursor-pointer"
+                className="flex items-stretch flex-wrap p-8 bg-white cursor-pointer "
                 style={{
                   borderRadius: "8px",
                   color: "#595959",
@@ -761,7 +808,7 @@ function MapComp() {
           </div>
         </div>
 
-        <div id="map" style={{ width: "75%", height: "100vh" }}></div>
+        <div id="map" className="hidden md:block md:w-3/4 h-screen"></div>
       </div>
       <section style={{ paddingLeft: "6rem", paddingRight: "6rem" }}>
         <div
