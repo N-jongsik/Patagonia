@@ -5,7 +5,7 @@ import { Router, Link } from "react-router-dom";
 function NavbarComp() {
   return (
     <nav>
-      <h1>patagonia</h1>
+      {/* <h1>patagonia</h1>
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>
@@ -22,7 +22,7 @@ function NavbarComp() {
         <li>
           <NavLink to="/map">Map</NavLink>
         </li>
-      </ul>
+      </ul> */}
       <div className="bg-black ">
         <div className="flex justify-around px-4">
           <div>&nbsp;</div>
@@ -71,7 +71,7 @@ function NavbarComp() {
                   className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
-                  Shop
+                  <NavLink to="/shop">Shop</NavLink>
                 </a>
               </li>
               <li className="h-full relative flex justify-center items-center">
@@ -80,7 +80,7 @@ function NavbarComp() {
                   className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
-                  Activism
+                  <NavLink to="/detail">Detail</NavLink>
                 </a>
               </li>
               <li className="h-full relative flex justify-center items-center">
@@ -89,7 +89,7 @@ function NavbarComp() {
                   className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
-                  Sports
+                  <NavLink to="/cart">Cart</NavLink>
                 </a>
               </li>
               <li className="h-full relative flex justify-center items-center">
@@ -98,7 +98,7 @@ function NavbarComp() {
                   className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
-                  Stories
+                  <NavLink to="/map">Map</NavLink>
                 </a>
               </li>
             </ul>
