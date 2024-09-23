@@ -41,6 +41,15 @@ function CartComp() {
 
   const [isTextVisible1, setIsTextVisible1] = useState(true);
 
+  const [checkedCarts, setCheckedCarts] = useState({});
+
+  const handleCheckboxChange2 = (id) => {
+    setCheckedCarts((prev) => ({
+      ...prev,
+      [id]: !prev[id], // 해당 카테고리의 체크 상태를 토글
+    }));
+  };
+
   const toggleTextVisibility1 = () => {
     setIsTextVisible1(!isTextVisible1);
     setIsTextVisible2(false);
@@ -136,7 +145,7 @@ function CartComp() {
               {products.map((product) => (
                 <li
                   key={product.id}
-                  className="flex ml-12 mb-4 py-6 w-6/7 h-120"
+                  className="flex ml-12 mb-4 py-6 w-6/7 h-120 "
                 >
                   <div>
                     <div className="mb-4">
@@ -316,7 +325,7 @@ function CartComp() {
           </div>
         </div>
         {/* 결제 창 */}
-        <div className="bg-black w-1/3 rounded-lg py-4 ml-2 mr-8 h-3/5">
+        <div className="bg-black w-1/3 rounded-lg py-4 ml-2 mr-8 h-3/5 hidden xl:flex">
           <div className="ml-28">
             <div className="text-white font-bold text-xl ml-4 py-4">
               <p>전체합계</p>
