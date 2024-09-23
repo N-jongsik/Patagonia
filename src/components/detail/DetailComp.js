@@ -1295,3 +1295,4 @@ function DetailComp() {
 }
 
 export default DetailComp;
+//icon complete
