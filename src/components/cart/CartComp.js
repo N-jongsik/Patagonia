@@ -136,7 +136,7 @@ function CartComp() {
               {products.map((product) => (
                 <li
                   key={product.id}
-                  className="flex ml-12 mb-4 py-6 max-w-screen-xl h-120"
+                  className="flex ml-12 mb-4 py-6 w-6/7 h-120"
                 >
                   <div>
                     <div className="mb-4">
@@ -181,10 +181,10 @@ function CartComp() {
                       </div>
 
                       <div className="ml-4 flex flex-1 flex-col">
-                        <div className="flex justify-between">
+                        <div className="">
                           <div>
                             <div className="flex justify-between">
-                              <div>
+                              <div className="pr-32">
                                 <div className="flex justify-between text-3xl font-extrabold text-gray-700 mb-1">
                                   <a href={product.href}>{product.name}</a>
                                 </div>
@@ -211,7 +211,7 @@ function CartComp() {
                               </span>
                             </div>
                           </div>
-                          <div className="mt-72">
+                          <div className="mt-20 ml-96">
                             <button
                               type="button"
                               className="font-bold mr-6 text-lg text-gray-900"
@@ -304,7 +304,7 @@ function CartComp() {
               <img src={foot_icon5} className="w-28 h-12"></img>
             </div>
             <div className="flex justify-between gap-4 mr-32 mt-3">
-              <div className="text-2xl">
+              <div className="text-2xl ">
                 <p>
                   구매하신 금액의 1%는 풀뿌리 환경단체에 지원금으로 전달됩니다.
                 </p>
