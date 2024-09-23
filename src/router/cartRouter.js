@@ -24,14 +24,14 @@ const cartRounter = () => {
         </Suspense>
       ),
     },
-    {
-      path: "shop/detail/:gno",
-      element: (
-        <Suspense fallback={loading}>
-          <ShoptoDetail />
-        </Suspense>
-      ),
-    },
+    // {
+    //   path: "detail/:gno",
+    //   element: (
+    //     <Suspense fallback={loading}>
+    //       <ShoptoDetail />
+    //     </Suspense>
+    //   ),
+    // },
   ];
 };
 
