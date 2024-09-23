@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import ReviewStars from "./ReviewStars.jsx";
+import { Link } from "react-router-dom";
+import useCustomMove from "../../hooks/useCustomMove.js";
 
 import {
   Disclosure,
@@ -368,6 +370,10 @@ function ShopComp() {
     }));
   };
 
+  const handleListToDeatil = (id) => {};
+
+  const { moveToRead } = useCustomMove();
+
   return (
     <>
       {/* Header */}
@@ -652,10 +658,9 @@ function ShopComp() {
                       key={product.id}
                       className="group relative product-image-container"
                     >
-                      <a
-                        href={product.href}
-                        onClick={(e) => {
-                          e.preventDefault();
+                      <div
+                        onClick={() => {
+                          moveToRead(product.id);
                         }}
                       >
                         <div className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
@@ -682,7 +687,7 @@ function ShopComp() {
                             </button>
                           </div>
                         </div>
-                      </a>
+                      </div>
 
                       <h3 className="mt-4 text-xl font-bold">{product.name}</h3>
                       <p className="mt-1 ml-1 text-md text-gray-700 font-bold">
