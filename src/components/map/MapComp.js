@@ -548,6 +548,7 @@ const patagonia_store = [
   },
 ];
 
+//전체 매장에서 매장 특성에 따라 filter처리
 const Direct = patagonia_store.filter((item) => item.category === "Direct");
 const DepartmentStore = patagonia_store.filter(
   (item) => item.category === "DepartmentStore"
@@ -556,6 +557,7 @@ const Mall = patagonia_store.filter((item) => item.category === "Mall");
 const Agency = patagonia_store.filter((item) => item.category === "Agency");
 const Outlet = patagonia_store.filter((item) => item.category === "Outlet");
 
+//주소별로 나누기 위해 주소 앞 두 글자 slice
 function MapComp() {
   const [selectedCity, setSelectedCity] = useState("");
   const filteredStores = patagonia_store.filter(
@@ -565,7 +567,13 @@ function MapComp() {
   const [storeInfo, setStoreInfo] = useState(patagonia_store);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchFilter, setSearchFilter] = useState([]);
+  const [searchFilter2, setSearchFilter2] = useState(null);
+  const [selectedStore, setSelectedStore] = useState(null);
 
+  const [map, setMap] = useState(null);
+  const [markers, setMarkers] = useState([]);
+
+  //매장 주소 검색 부분 처리하는 함수
   const handleInputChange = (e) => {
     const input = e.target.value;
     setSearchTerm(input);
@@ -576,19 +584,165 @@ function MapComp() {
     setSearchFilter(filtered);
   };
 
-  // const displayedStores = searchTerm ? searchFilter : storeInfo;
+  // Enter 키를 눌렀을 때 호출될 함수
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      // 입력 필드에서 Enter 키를 눌렀을 때 검색 필터 출력
+      const filtered = patagonia_store.filter((store) => {
+        return store.addr.includes(searchTerm);
+      });
+      setSearchFilter2(filtered);
+    }
+  };
+
+  // const handleStoreClick = (addr) => {
+  //   const store = patagonia_store.find((store) => store.addr === addr);
+  //   if (store) {
+  //     setSelectedStore(store);
+  //   }
+  //   setTimeout(() => {
+  //     setSelectedStore(null); // 다시 null값으로 초기화
+  //   }, 5000);
+
+  //   // 지도 이동 및 마커 표시
+  //   const position = new kakao.maps.LatLng(
+  //     parseFloat(store.latitude),
+  //     parseFloat(store.longitude)
+  //   );
+
+  //   // 지도 이동
+  //   map.setCenter(position); // 여기서 map은 useEffect 내에서 생성된 map 객체입니다
+
+  //   // 마커 표시 (이미 생성된 마커가 있을 경우)
+  //   markers.forEach((marker) => {
+  //     if (marker.getPosition().equals(position)) {
+  //       marker.setMap(map); // 해당 마커를 지도에 표시
+  //     } else {
+  //       marker.setMap(null); // 다른 마커는 숨김
+  //     }
+  //   });
+  // };
+  const handleStoreClick = (addr) => {
+    const store = patagonia_store.find((s) => s.addr === addr);
+    if (store && map) {
+      setSelectedStore(store);
+      const position = new kakao.maps.LatLng(
+        parseFloat(store.latitude),
+        parseFloat(store.longitude)
+      );
+
+      map.setCenter(position); // 지도 중심 이동
+
+      // 모든 마커를 숨기고 선택된 마커만 보이도록 설정
+      markers.forEach((marker) => {
+        if (marker.getPosition().equals(position)) {
+          marker.setMap(map); // 선택된 마커 표시
+          console.log(2222222222222);
+        } else {
+          marker.setMap(null); // 다른 마커 숨기기
+          console.log("ㅅㅂㅅㅂㅅㅂㅅㅂㅅㅂㅅ");
+        }
+      });
+    }
+    setTimeout(() => {
+      setSelectedStore(null); // 다시 null값으로 초기화
+    }, 3000);
+  };
+
+  // useEffect(() => {
+  //   const mapContainer = document.getElementById("map"), // 지도를 표시할 div
+  //     mapOption = {
+  //       center: new kakao.maps.LatLng(37.5193278, 127.0236615), // 지도의 중심좌표
+  //       level: 7, // 지도의 확대 레벨
+  //     };
+
+  //   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+  //   const map = new kakao.maps.Map(mapContainer, mapOption);
+
+  //   var positions = patagonia_store.map((store) => ({
+  //     title: store.name,
+  //     addr: store.addr,
+  //     latlng: new kakao.maps.LatLng(
+  //       parseFloat(store.latitude),
+  //       parseFloat(store.longitude)
+  //     ),
+  //   }));
+
+  //   // 마커 이미지의 이미지 주소입니다
+  //   var imageSrc = markerImageSrc;
+
+  //   const markers = [];
+
+  //   // 인포윈도우를 하나만 생성하여 재사용합니다
+  //   var infowindow = new kakao.maps.InfoWindow({
+  //     removable: false, // X 버튼 없이
+  //   });
+
+  //   for (var i = 0; i < positions.length; i++) {
+  //     // 마커 이미지의 이미지 크기 입니다
+  //     var imageSize = new kakao.maps.Size(24, 35);
+
+  //     // 마커 이미지를 생성합니다
+  //     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+  //     // 모든 마커를 생성하고 markers 배열에 저장
+  //     positions.forEach((position) => {
+  //       var imageSize = new kakao.maps.Size(24, 35);
+  //       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+  //       var marker = new kakao.maps.Marker({
+  //         map: map,
+  //         position: position.latlng,
+  //         title: position.title,
+  //         addr: position.addr,
+  //         image: markerImage,
+  //         clickable: true,
+  //       });
+
+  //       // 각 마커에 클릭 이벤트를 등록
+  //       kakao.maps.event.addListener(marker, "click", function () {
+  //         var iwContent = `<div style="padding: 20px; text-align: center; white-space: nowrap;"><strong>${position.title}</strong></div>`;
+  //         infowindow.setContent(iwContent);
+  //         infowindow.open(map, marker);
+
+  //         // 선택된 마커의 정보를 storeInfo에 저장
+  //         setStoreInfo([{ title: position.title, addr: position.addr }]);
+  //       });
+
+  //       markers.push(marker); // 모든 마커를 배열에 저장
+  //     });
+
+  //     // 지도의 영역이 변경될 때(확대/축소/이동)마다 호출될 함수
+  //     const updateMarkersInView = () => {
+  //       const bounds = map.getBounds(); // 현재 지도 영역의 경계값을 가져옴
+  //       const visibleMarkers = positions.filter((position) => {
+  //         const latLng = position.latlng;
+  //         return bounds.contain(latLng); // 현재 지도 영역에 포함된 마커들만 필터링
+  //       });
+
+  //       setStoreInfo(visibleMarkers); // 보이는 마커들의 정보를 저장
+  //     };
+
+  //     // 지도 이동/확대/축소 이벤트 등록
+  //     kakao.maps.event.addListener(map, "zoom_changed", updateMarkersInView);
+  //     kakao.maps.event.addListener(map, "dragend", updateMarkersInView);
+
+  //     // 초기 로딩 시에도 보이는 마커 업데이트
+  //     updateMarkersInView();
+  //   }
+  // }, []);
 
   useEffect(() => {
-    const mapContainer = document.getElementById("map"), // 지도를 표시할 div
-      mapOption = {
-        center: new kakao.maps.LatLng(37.5193278, 127.0236615), // 지도의 중심좌표
-        level: 7, // 지도의 확대 레벨
-      };
+    const mapContainer = document.getElementById("map");
+    const mapOption = {
+      center: new kakao.maps.LatLng(37.5193278, 127.0236615),
+      level: 7,
+    };
 
-    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-    const map = new kakao.maps.Map(mapContainer, mapOption);
+    const createdMap = new kakao.maps.Map(mapContainer, mapOption);
+    setMap(createdMap); // map 상태로 저장
 
-    var positions = patagonia_store.map((store) => ({
+    const positions = patagonia_store.map((store) => ({
       title: store.name,
       addr: store.addr,
       latlng: new kakao.maps.LatLng(
@@ -597,91 +751,61 @@ function MapComp() {
       ),
     }));
 
-    // 마커 이미지의 이미지 주소입니다
-    var imageSrc = markerImageSrc;
+    const imageSrc = markerImageSrc;
+    const createdMarkers = []; // 생성된 마커들을 저장할 배열
 
-    const markers = [];
-
-    // 인포윈도우를 하나만 생성하여 재사용합니다
-    var infowindow = new kakao.maps.InfoWindow({
-      removable: false, // X 버튼 없이
+    const infowindow = new kakao.maps.InfoWindow({
+      removable: false,
     });
 
-    for (var i = 0; i < positions.length; i++) {
-      // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(24, 35);
+    positions.forEach((position) => {
+      const imageSize = new kakao.maps.Size(24, 35);
+      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-      // 마커 이미지를 생성합니다
-      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-      // 모든 마커를 생성하고 markers 배열에 저장
-      positions.forEach((position) => {
-        var imageSize = new kakao.maps.Size(24, 35);
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-        var marker = new kakao.maps.Marker({
-          map: map,
-          position: position.latlng,
-          title: position.title,
-          addr: position.addr,
-          image: markerImage,
-          clickable: true,
-        });
-
-        // 각 마커에 클릭 이벤트를 등록
-        kakao.maps.event.addListener(marker, "click", function () {
-          var iwContent = `<div style="padding:20px;"><strong>${position.title}</strong></div>`;
-          infowindow.setContent(iwContent);
-          infowindow.open(map, marker);
-
-          // 선택된 마커의 정보를 storeInfo에 저장
-          setStoreInfo([{ title: position.title, addr: position.addr }]);
-        });
-
-        markers.push(marker); // 모든 마커를 배열에 저장
+      const marker = new kakao.maps.Marker({
+        map: createdMap, // 마커를 지도에 바로 추가
+        position: position.latlng,
+        title: position.title,
+        addr: position.addr,
+        image: markerImage,
+        clickable: true,
       });
 
-      // 지도의 영역이 변경될 때(확대/축소/이동)마다 호출될 함수
-      const updateMarkersInView = () => {
-        const bounds = map.getBounds(); // 현재 지도 영역의 경계값을 가져옴
-        const visibleMarkers = positions.filter((position) => {
-          const latLng = position.latlng;
-          return bounds.contain(latLng); // 현재 지도 영역에 포함된 마커들만 필터링
-        });
+      // 마커 클릭 이벤트 등록
+      kakao.maps.event.addListener(marker, "click", function () {
+        const iwContent = `<div style="padding: 20px; text-align: center; white-space: nowrap;"><strong>${position.title}</strong></div>`;
+        infowindow.setContent(iwContent);
+        infowindow.open(createdMap, marker); // 인포윈도우를 지도에 표시
 
-        setStoreInfo(visibleMarkers); // 보이는 마커들의 정보를 저장
-      };
+        // 선택된 마커의 정보를 상태로 저장
+        setStoreInfo([{ title: position.title, addr: position.addr }]);
+      });
 
-      // 지도 이동/확대/축소 이벤트 등록
-      kakao.maps.event.addListener(map, "zoom_changed", updateMarkersInView);
-      kakao.maps.event.addListener(map, "dragend", updateMarkersInView);
+      createdMarkers.push(marker); // 마커 배열에 추가
+    });
 
-      // 초기 로딩 시에도 보이는 마커 업데이트
-      updateMarkersInView();
+    // createdMarkers 배열에 마커가 잘 추가되었는지 확인
+    console.log("Created markers:", createdMarkers);
+    setMarkers(createdMarkers); // 마커 상태로 저장
 
-      // 마커를 생성합니다
-      // var marker = new kakao.maps.Marker({
-      //   map: map, // 마커를 표시할 지도
-      //   position: positions[i].latlng, // 마커를 표시할 위치
-      //   title: positions[i].title, // 마커의 타이틀
-      //   addr: positions[i].addr, //마커의 주소
-      //   image: markerImage, // 마커 이미지
-      //   clickable: true, // 마커를 클릭할 수 있도록 설정
-      // });
+    const updateMarkersInView = () => {
+      const bounds = createdMap.getBounds();
+      const visibleMarkers = positions.filter((position) => {
+        const latLng = position.latlng;
+        return bounds.contain(latLng); // 현재 지도 영역에 포함된 마커들만 필터링
+      });
 
-      // 마커 클릭 이벤트를 등록합니다 (클로저 문제 해결을 위해 즉시 실행 함수 사용)
-      // (function (marker, title, addr) {
-      //   kakao.maps.event.addListener(marker, "click", function () {
-      //     // 마커 클릭 시 인포윈도우 표시
-      //     var iwContent = `<div style="padding:20px; width:250px; text-align:center;"><strong>${title}</strong></div>`;
-      //     infowindow.setContent(iwContent);
-      //     infowindow.open(map, marker);
+      setStoreInfo(visibleMarkers); // 보이는 마커들의 정보를 저장
+    };
 
-      //     // storeInfo에 해당 마커의 타이틀을 저장
-      //     setStoreInfo({ title, addr });
-      //   });
-      // })(marker, positions[i].title, positions[i].addr); // 즉시 실행 함수로 title 값을 캡처하여 각 마커에 대한 클릭 이벤트 생성
-    }
+    kakao.maps.event.addListener(
+      createdMap,
+      "zoom_changed",
+      updateMarkersInView
+    );
+    kakao.maps.event.addListener(createdMap, "dragend", updateMarkersInView);
+
+    updateMarkersInView(); // 초기 로딩 시 보이는 마커 업데이트
   }, []);
 
   return (
@@ -690,7 +814,7 @@ function MapComp() {
         <div className="container w-full md:w-1/4 h-screen">
           <div
             className="bg-black relative"
-            style={{ height: "9.7rem", padding: "1.8rem 1rem" }}
+            style={{ height: "9.7rem", padding: "1.4rem 1rem" }}
           >
             <div className="relative w-full h-full block">
               <span
@@ -707,19 +831,20 @@ function MapComp() {
                 type="text"
                 value={searchTerm}
                 onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
                 style={{
                   color: "#a9a9a9",
                   borderRadius: "2.5rem",
                   height: "5.8rem",
                   paddingLeft: "6rem",
-                  fontSize: "1.6rem",
+                  fontSize: "1.2rem",
                   background: "#fafafa",
                   transition: "background 250ms ease-out",
                 }}
                 className="w-full pr-6 mb-2"
               />
 
-              {searchTerm && (
+              {searchTerm && !selectedStore && (
                 <div className="block left-4 top-32 w-full h-80 bg-white overflow-y-auto shadow-[0_0_14px_rgba(0,0,0,0.3)]">
                   {searchFilter.length > 0 ? (
                     searchFilter.map((store, index) => {
@@ -729,6 +854,7 @@ function MapComp() {
                         <p
                           key={index}
                           className="w-full font-normal cursor-pointer px-6 py-7 border-b border-[#d4cec9] text-[#837c77] text-lg"
+                          onClick={() => handleStoreClick(addr)}
                         >
                           {parts.map((part, i) =>
                             part === searchTerm ? (
@@ -760,9 +886,8 @@ function MapComp() {
               overflowY: "auto",
             }}
           >
-            {storeInfo.map((store, index) => (
+            {selectedStore && (
               <div
-                key={index}
                 className="flex items-stretch flex-wrap p-8 bg-white cursor-pointer "
                 style={{
                   borderRadius: "8px",
@@ -774,37 +899,89 @@ function MapComp() {
                   <div className="flex-grow" style={{ paddingRight: "1rem" }}>
                     <h4
                       className="font-bold text-black pb-4"
-                      style={{ fontSize: "1.6rem", lineHeight: "1.15em" }}
+                      style={{ fontSize: "1.2rem", lineHeight: "1.15em" }}
                     >
-                      {store.title}
+                      {selectedStore.name}
                     </h4>
                     <address
                       className="block text-black font-normal"
                       style={{
                         marginBottom: "0.625rem",
-                        fontSize: "1.2rem",
+                        fontSize: "0.8rem",
                         lineHeight: "1.15",
                       }}
                     >
-                      {store.addr}
+                      {selectedStore.addr}
                     </address>
-
-                    <div
-                      className="flex justify-center items-center w-full font-bold bg-white"
-                      style={{
-                        height: "4rem",
-                        marginTop: "2rem",
-                        borderRadius: "30px",
-                        border: "2px solid #000000",
-                        fontSize: "1.4rem",
-                      }}
-                    >
-                      Store Details
-                    </div>
+                  </div>
+                  <div className="flex flex-col justify-center min-w-[60px] pl-4 border-l border-[#d9d4cf] leading-[1.15] text-center box-border">
+                    <span className="block w-4 h-4 mx-auto mb-2 map_distance"></span>
+                    <p className="text-black text-center">1.0km</p>
                   </div>
                 </div>
+                <div
+                  className="flex justify-center items-center w-full font-bold bg-white"
+                  style={{
+                    height: "4rem",
+                    marginTop: "2rem",
+                    borderRadius: "30px",
+                    border: "2px solid #000000",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Store Details
+                </div>
               </div>
-            ))}
+            )}
+            {!selectedStore &&
+              storeInfo.map((store, index) => (
+                <div
+                  key={index}
+                  className="flex items-stretch flex-wrap p-8 bg-white cursor-pointer "
+                  style={{
+                    borderRadius: "8px",
+                    color: "#595959",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <div className="flex w-full">
+                    <div className="flex-grow" style={{ paddingRight: "1rem" }}>
+                      <h4
+                        className="font-bold text-black pb-4"
+                        style={{ fontSize: "1.2rem", lineHeight: "1.15em" }}
+                      >
+                        {store.title}
+                      </h4>
+                      <address
+                        className="block text-black font-normal"
+                        style={{
+                          marginBottom: "0.625rem",
+                          fontSize: "0.8rem",
+                          lineHeight: "1.15",
+                        }}
+                      >
+                        {store.addr}
+                      </address>
+                    </div>
+                    <div className="flex flex-col justify-center min-w-[60px] pl-4 border-l border-[#d9d4cf] leading-[1.15] text-center box-border">
+                      <span className="block w-4 h-4 mx-auto mb-2 map_distance"></span>
+                      <p className="text-black text-center">1.0km</p>
+                    </div>
+                  </div>
+                  <div
+                    className="flex justify-center items-center w-full font-bold bg-white"
+                    style={{
+                      height: "4rem",
+                      marginTop: "2rem",
+                      borderRadius: "30px",
+                      border: "2px solid #000000",
+                      fontSize: "1rem",
+                    }}
+                  >
+                    Store Details
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
 
@@ -839,7 +1016,7 @@ function MapComp() {
             marginBottom: "0.5rem",
             padding: "0.9rem 4.5rem 0.9rem 2.4rem",
             color: "#555555",
-            fontSize: "1.4rem",
+            fontSize: "1rem",
             lineHeight: "1.4286",
             border: "0.1rem solid #cccccc",
           }}
@@ -871,13 +1048,13 @@ function MapComp() {
             <>
               {/* 전체 매장 */}
               <div className="container py-0 px-[0.8rem]">
-                <p className="block w-full font-bold text-[1.8rem] py-6">
+                <p className="block w-full font-bold text-[1.4rem] py-6">
                   직영점
                 </p>
                 <div className="grid sm:grid-cols-1 sm-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {Direct.map((item, i) => (
                     <div
-                      className="bg-white text-[1.4rem] h-[14rem] pr-10"
+                      className="bg-white text-[1rem] h-[14rem] pr-10"
                       key={i}
                     >
                       <p className="text-[#fa4616] font-bold hover:text-black cursor-pointer">
@@ -894,13 +1071,13 @@ function MapComp() {
 
               {/* 다른 카테고리들 */}
               <div className="container py-0 px-[0.8rem]">
-                <p className="block w-full font-bold text-[1.8rem] py-6">
+                <p className="block w-full font-bold text-[1.4rem] py-6">
                   백화점
                 </p>
                 <div className="grid sm:grid-cols-1 sm-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {DepartmentStore.map((item, i) => (
                     <div
-                      className="bg-white text-[1.4rem] h-[14rem] pr-10"
+                      className="bg-white text-[1rem] h-[14rem] pr-10"
                       key={i}
                     >
                       <p className="text-[#fa4616] font-bold hover:text-black cursor-pointer">
@@ -916,11 +1093,11 @@ function MapComp() {
               </div>
 
               <div className="container py-0 px-[0.8rem]">
-                <p className="block w-full font-bold text-[1.8rem] py-6">몰</p>
+                <p className="block w-full font-bold text-[1.4rem] py-6">몰</p>
                 <div className="grid sm:grid-cols-1 sm-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {Mall.map((item, i) => (
                     <div
-                      className="bg-white text-[1.4rem] h-[14rem] pr-10"
+                      className="bg-white text-[1rem] h-[14rem] pr-10"
                       key={i}
                     >
                       <p className="text-[#fa4616] font-bold hover:text-black cursor-pointer">
@@ -936,13 +1113,13 @@ function MapComp() {
               </div>
 
               <div className="container py-0 px-[0.8rem]">
-                <p className="block w-full font-bold text-[1.8rem] py-6">
+                <p className="block w-full font-bold text-[1.4rem] py-6">
                   대리점
                 </p>
                 <div className="grid sm:grid-cols-1 sm-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {Agency.map((item, i) => (
                     <div
-                      className="bg-white text-[1.4rem] h-[14rem] pr-10"
+                      className="bg-white text-[1rem] h-[14rem] pr-10"
                       key={i}
                     >
                       <p className="text-[#fa4616] font-bold hover:text-black cursor-pointer">
@@ -958,13 +1135,13 @@ function MapComp() {
               </div>
 
               <div className="container py-0 px-[0.8rem]">
-                <p className="block w-full font-bold text-[1.8rem] py-6">
+                <p className="block w-full font-bold text-[1.4rem] py-6">
                   아울렛
                 </p>
                 <div className="grid sm:grid-cols-1 sm-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {Outlet.map((item, i) => (
                     <div
-                      className="bg-white text-[1.4rem] h-[14rem] pr-10"
+                      className="bg-white text-[1rem] h-[14rem] pr-10"
                       key={i}
                     >
                       <p className="text-[#fa4616] font-bold hover:text-black cursor-pointer">
@@ -982,9 +1159,9 @@ function MapComp() {
           ) : (
             //지역을 골랐을 때 해당 지역에 따라나타나는 부분
             <div className="container py-0 px-[0.8rem]">
-              <p className="block w-full font-bold text-[1.8rem] py-6">
+              <p className="block w-full font-bold text-[1.4rem] py-6">
                 {filteredStores.length === 0 ? (
-                  <p className="flex justify-center items-center w-full font-bold text-center text-[1.8rem]">
+                  <p className="flex justify-center items-center w-full font-bold text-center text-[1.4rem]">
                     해당 지역에 매장이 존재하지 않습니다.
                   </p>
                 ) : (
@@ -993,10 +1170,7 @@ function MapComp() {
               </p>
               <div className="grid sm:grid-cols-1 sm-md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {filteredStores.map((item, i) => (
-                  <div
-                    className="bg-white text-[1.4rem] h-[14rem] pr-10"
-                    key={i}
-                  >
+                  <div className="bg-white text-[1rem] h-[14rem] pr-10" key={i}>
                     <p className="text-[#fa4616] font-bold hover:text-black cursor-pointer">
                       {item.name}
                     </p>
