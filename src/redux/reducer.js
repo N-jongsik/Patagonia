@@ -193,6 +193,7 @@ const productList = [
     name: "Snowbelle Beanie",
     koName: "스노우벨 비니",
     price: "89,000원",
+    price2: 89000,
     href: "#",
     images: [
       {
@@ -335,6 +336,7 @@ const productList = [
     name: "Fisherman's Rolled Beanie",
     koName: "피셔맨즈 롤드 비니",
     price: "69,000원",
+    price2: 69000,
     href: "#",
     images: [
       {
@@ -480,6 +482,7 @@ const productList = [
     name: "Bandana",
     koName: "밴대나",
     price: "35,000원",
+    price2: 35000,
     href: "#",
     images: [
       {
