@@ -57,20 +57,20 @@ function NavbarComp() {
             <ul className="before_list flex justify-center items-center pr-36">
               <li className="h-full relative flex justify-center items-center">
                 <NavLink
-                  to={"/shop"}
+                  to={""}
                   className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
-                  Shop
+                  Home
                 </NavLink>
               </li>
               <li className="h-full relative flex justify-center items-center">
                 <NavLink
-                  to="/detail"
+                  to="/Shop"
                   className="font-semibold hidden md:block py-2 text-black relative"
                   style={{ padding: "0 3rem" }}
                 >
-                  Detail
+                  Shop
                 </NavLink>
               </li>
               <li className="h-full relative flex justify-center items-center">
