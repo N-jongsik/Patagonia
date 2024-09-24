@@ -38,6 +38,7 @@ const productList = [
     name: "'73 Skyline Uprisal Hoody",
     koName: "73 스카이라인 업라이절 후디",
     price: "159,000원",
+    style_num: "39678P7",
     href: "#",
     images: [
       {

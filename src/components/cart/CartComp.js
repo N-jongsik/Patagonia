@@ -197,19 +197,16 @@ function CartComp() {
 
                         <div className="flex justify-between">
                           <div className="flex space-x-4">
-                            {product.images &&
-                              product.images.map((item, i) => (
-                                <div
-                                  key={i}
-                                  className="h-80 w-72 flex-shrink-0 overflow-hidden border border-gray-200"
-                                >
-                                  <img
-                                    alt={item.alt || "Product image"}
-                                    src={item.src}
-                                    className="h-full w-full object-center"
-                                  />
-                                </div>
-                              ))}
+                            <div
+                              key={0}
+                              className="h-80 w-72 flex-shrink-0 overflow-hidden border border-gray-200"
+                            >
+                              <img
+                                alt={product.images[0].alt}
+                                src={product.images[0].src}
+                                className="h-full w-full object-center"
+                              />
+                            </div>
                           </div>
 
                           <div className="ml-4 flex flex-1 flex-col">
@@ -231,34 +228,32 @@ function CartComp() {
                                 {product.style_num}
                               </div>
                               <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                                Color:
-                                {product.colors.map((item, i) => {
-                                  return <div key={i}>{item.name}</div>;
-                                })}
+                                Color: Ink Black (INBK)
                               </div>
                               <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                                Size:{" "}
-                                {product.sizes.map((item, i) => {
-                                  return <div key={i}>{item.name}</div>;
-                                })}
+                                Size: XS
                               </div>
                             </div>
-                            {/* <div className="mt-20 ml-96">
+                            <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                              <span className="underline">Qty: 1</span>
+                            </div>
+
+                            <div className="mt-20 ml-96">
                               <button
                                 type="button"
                                 className="font-bold mr-6 text-lg text-gray-900"
-                                onClick={() => handleRemoveFromCart(product.id)} // 삭제 핸들러
+                                // 삭제 핸들러
                               >
                                 삭제
                               </button>
                               <button
                                 type="button"
                                 className="font-bold text-lg text-white ml-8 bg-gray-900 px-10 py-1 rounded-full"
-                                onClick={() => handlePurchase(product.id)} // 바로구매 핸들러
+                                // 바로구매 핸들러
                               >
                                 바로구매
                               </button>
-                            </div> */}
+                            </div>
                           </div>
                         </div>
                       </div>
