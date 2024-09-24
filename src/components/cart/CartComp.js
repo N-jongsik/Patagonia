@@ -1,4 +1,7 @@
 import { React, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCart } from "../../redux/cartReducer";
+
 import product1 from "../../assets/images/product1.jpg";
 import foot_icon1 from "../../assets/images/icons_organic.png";
 import foot_icon2 from "../../assets/images/icons_fairTrade2.png";
@@ -6,36 +9,42 @@ import foot_icon3 from "../../assets/images/icons_recycled2.png";
 import foot_icon4 from "../../assets/images/icons_hemp.png";
 import foot_icon5 from "../../assets/images/for-the-planet.png";
 import sletter from "../../assets/images/ybonsletter.png";
-const products = [
-  {
-    id: 1,
-    name: "'73 Skyline Uprisal Hoody",
-    sub_name: "73 스카이라인 업라이절 후디",
-    href: "#",
-    color: "Ink Black (INBK)",
-    style_num: "26685P7",
-    size: "XS",
-    price: "159,000원",
-    quantity: 1,
-    imageSrc: product1,
-    imageAlt: "",
-  },
-  {
-    id: 2,
-    name: "'73 Skyline Uprisal Hoody",
-    sub_name: "73 스카이라인 업라이절 후디",
-    href: "#",
-    color: "Ink Black (INBK)",
-    style_num: "26685P7",
-    size: "XS",
-    price: "159,000원",
-    quantity: 1,
-    imageSrc: product1,
-    imageAlt: "",
-  },
-];
+// const products = [
+//   {
+//     id: 1,
+//     name: "'73 Skyline Uprisal Hoody",
+//     sub_name: "73 스카이라인 업라이절 후디",
+//     href: "#",
+//     color: "Ink Black (INBK)",
+//     style_num: "26685P7",
+//     size: "XS",
+//     price: "159,000원",
+//     quantity: 1,
+//     imageSrc: product1,
+//     imageAlt: "",
+//   },
+//   {
+//     id: 2,
+//     name: "'73 Skyline Uprisal Hoody",
+//     sub_name: "73 스카이라인 업라이절 후디",
+//     href: "#",
+//     color: "Ink Black (INBK)",
+//     style_num: "26685P7",
+//     size: "XS",
+//     price: "159,000원",
+//     quantity: 1,
+//     imageSrc: product1,
+//     imageAlt: "",
+//   },
+// ];
 
 function CartComp() {
+  const cartItems = useSelector(selectCart); // Redux에서 장바구니 아이템 가져오기
+
+  // if (cartItems.length === 0) {
+  //   return <div>장바구니가 비어 있습니다.</div>;
+  // }
+
   const [open, setOpen] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -142,7 +151,7 @@ function CartComp() {
           </div>
           <div className="flow-root min-h-full">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {products.map((product) => (
+              {cartItems.map((product) => (
                 <li
                   key={product.id}
                   className="flex ml-12 mb-4 py-6 w-6/7 h-120 "
