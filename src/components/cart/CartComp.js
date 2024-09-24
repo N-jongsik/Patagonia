@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCart } from "../../redux/cartReducer";
+import { selectProducts } from "../../redux/reducer"; // 제품 목록에서 아이템 가져오기
 
 import product1 from "../../assets/images/product1.jpg";
 import foot_icon1 from "../../assets/images/icons_organic.png";
@@ -39,11 +40,12 @@ import sletter from "../../assets/images/ybonsletter.png";
 // ];
 
 function CartComp() {
-  const cartItems = useSelector(selectCart); // Redux에서 장바구니 아이템 가져오기
-
-  // if (cartItems.length === 0) {
-  //   return <div>장바구니가 비어 있습니다.</div>;
-  // }
+  const cart = useSelector(selectCart); // Redux에서 장바구니 아이템 가져오기
+  const products = useSelector(selectProducts); // products는 전체 제품 목록
+  // cart에 담긴 제품들의 정보를 가져오기
+  const cartItems = cart.map((id) =>
+    products.find((product) => product.id === id)
+  );
 
   const [open, setOpen] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
@@ -151,104 +153,118 @@ function CartComp() {
           </div>
           <div className="flow-root min-h-full">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
-              {cartItems.map((product) => (
-                <li
-                  key={product.id}
-                  className="flex ml-12 mb-4 py-6 w-6/7 h-120 "
-                >
-                  <div>
-                    <div className="mb-4">
-                      <label className="inline-flex items-center px-2 py-2 text-lg text-gray-900">
-                        <div
-                          className={`h-6 w-6 border-2 border-gray-900 rounded flex items-center justify-center cursor-pointer ${
-                            isChecked ? "bg-black" : "bg-white"
-                          }`}
-                          onClick={handleCheckboxChange}
-                        >
-                          {isChecked && (
-                            <svg
-                              className="w-4 h-4 text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
+              {cartItems.length > 0 ? (
+                cartItems.map((product) =>
+                  product ? ( // product가 null일 가능성 처리
+                    <li
+                      key={product.id}
+                      className="flex ml-12 mb-4 py-6 w-6/7 h-120"
+                    >
+                      <div>
+                        <div className="mb-4">
+                          <label className="inline-flex items-center px-2 py-2 text-lg text-gray-900">
+                            <div
+                              className={`h-6 w-6 border-2 border-gray-900 rounded flex items-center justify-center cursor-pointer ${
+                                isChecked ? "bg-black" : "bg-white"
+                              }`}
+                              onClick={handleCheckboxChange}
                             >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M5 13l4 4L19 7"
-                              ></path>
-                            </svg>
-                          )}
+                              {isChecked && (
+                                <svg
+                                  className="w-4 h-4 text-white"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M5 13l4 4L19 7"
+                                  ></path>
+                                </svg>
+                              )}
+                            </div>
+                            <span
+                              className="ml-2 cursor-pointer"
+                              onClick={handleCheckboxChange}
+                            >
+                              {/* 여기에 필요하면 전체 선택 관련 내용 추가 */}
+                            </span>
+                          </label>
                         </div>
-                        <span
-                          className="ml-2 cursor-pointer"
-                          onClick={handleCheckboxChange}
-                        ></span>
-                      </label>
-                    </div>
 
-                    <div className="flex justify-between">
-                      <div className="h-80 w-72 flex-shrink-0 overflow-hidden  border border-gray-200">
-                        <img
-                          alt={product.imageAlt}
-                          src={product.imageSrc}
-                          className="h-full w-full  object-center"
-                        />
-                      </div>
+                        <div className="flex justify-between">
+                          <div className="h-80 w-72 flex-shrink-0 overflow-hidden border border-gray-200">
+                            <img
+                              alt={product.imageAlt}
+                              src={product.imageSrc}
+                              className="h-full w-full object-center"
+                            />
+                          </div>
 
-                      <div className="ml-4 flex flex-1 flex-col">
-                        <div className="">
-                          <div>
-                            <div className="flex justify-between">
-                              <div className="pr-32">
-                                <div className="flex justify-between text-3xl font-extrabold text-gray-700 mb-1">
-                                  <a href={product.href}>{product.name}</a>
+                          <div className="ml-4 flex flex-1 flex-col">
+                            <div>
+                              <div className="flex justify-between">
+                                <div className="pr-32">
+                                  <div className="flex justify-between text-3xl font-extrabold text-gray-700 mb-1">
+                                    <a href={product.href}>{product.name}</a>
+                                  </div>
+                                  <div className="flex justify-between text-xl font-extrabold text-gray-500 mb-1 ml-2">
+                                    {product.sub_name}
+                                  </div>
                                 </div>
-                                <div className="flex justify-between text-xl font-extrabold text-gray-500 mb-1 ml-2">
-                                  {product.sub_name}
+                                <div className="flex justify-between text-2xl font-extrabold text-gray-900 mb-1 ml-2">
+                                  {product.price} 원
                                 </div>
                               </div>
-                              <div className="flex justify-between text-2xl font-extrabold text-gray-900 mb-1 ml-2">
-                                {product.price}
+                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                                {product.style_num}
+                              </div>
+                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                                Color: {product.color}
+                              </div>
+                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                                Size: {product.size}
+                              </div>
+                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                                <span className="underline">
+                                  Qty: {product.quantity}
+                                </span>
                               </div>
                             </div>
-                            <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                              {product.style_num}
-                            </div>
-                            <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                              Color: {product.color}
-                            </div>
-                            <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                              Size: {product.size}
-                            </div>
-                            <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                              <span className="underline">
-                                Qty: {product.quantity}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="mt-20 ml-96">
-                            <button
-                              type="button"
-                              className="font-bold mr-6 text-lg text-gray-900"
-                            >
-                              삭제
-                            </button>
-                            <button
-                              type="button"
-                              className="font-bold text-lg text-white ml-8 bg-gray-900 px-10 py-1 rounded-full"
-                            >
-                              바로구매
-                            </button>
+                            {/* <div className="mt-20 ml-96">
+                              <button
+                                type="button"
+                                className="font-bold mr-6 text-lg text-gray-900"
+                                onClick={() => handleRemoveFromCart(product.id)} // 삭제 핸들러
+                              >
+                                삭제
+                              </button>
+                              <button
+                                type="button"
+                                className="font-bold text-lg text-white ml-8 bg-gray-900 px-10 py-1 rounded-full"
+                                onClick={() => handlePurchase(product.id)} // 바로구매 핸들러
+                              >
+                                바로구매
+                              </button>
+                            </div> */}
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </li>
-              ))}
+                    </li>
+                  ) : (
+                    <li key={Math.random()}>
+                      해당 제품 정보를 찾을 수 없습니다.
+                    </li>
+                  )
+                )
+              ) : (
+                <div className="ml-12 text-lg text-gray-600">
+                  장바구니가 비어 있습니다.
+                </div>
+              )}
             </ul>
           </div>
 
