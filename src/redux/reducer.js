@@ -636,19 +636,3 @@ const reducer = createSlice({
 export const { setProducts } = reducer.actions;
 export const selectProducts = (state) => state.products;
 export default reducer.reducer;
-
-// const reducer = (state = productList, action) => {
-//   console.log(state, action);
-
-//   if (action.type == "add_to_cart") {
-//     return { ...state, name: state.name + action.payload };
-//   }
-
-//   if (action.type == "delete_from_cart") {
-//     return { ...state, name: state.name - action.payload };
-//   }
-
-//   return state;
-// };
-
-// export default reducer;

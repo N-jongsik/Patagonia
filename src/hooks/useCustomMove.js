@@ -8,12 +8,12 @@ function useCustomMove() {
     });
   };
 
-  const moveToCart = (id) => {
+  const addToCart = (id) => {
     navigate({
       pathname: `../cart`,
     });
   };
-  return { moveToRead, moveToCart };
+  return { moveToRead, addToCart };
 }
 
 export default useCustomMove;
