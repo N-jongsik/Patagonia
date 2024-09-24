@@ -39,7 +39,7 @@ function DetailComp() {
   console.log("찾은 product: ", product); // product 값 확인
 
   const handleAddToCart = () => {
-    // Redux에 제품 추가ㅌ
+    // Redux에 제품 추가
     dispatch(addProductToCart(product.id));
     // 장바구니 페이지로 이동
     addToCart(product);
