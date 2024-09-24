@@ -39,8 +39,8 @@ function DetailComp() {
   console.log("찾은 product: ", product); // product 값 확인
 
   const handleAddToCart = () => {
-    // Redux에 제품 추가
-    dispatch(addProductToCart(product));
+    // Redux에 제품 추가ㅌ
+    dispatch(addProductToCart(product.id));
     // 장바구니 페이지로 이동
     addToCart(product);
   };
@@ -300,7 +300,8 @@ function DetailComp() {
                 </button>
               </div>
               {/* cart */}
-              <div className="mt-4">
+              <div>
+                <h1>{product.name}</h1>
                 <button
                   type="submit"
                   className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
