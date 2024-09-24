@@ -196,12 +196,20 @@ function CartComp() {
                         </div>
 
                         <div className="flex justify-between">
-                          <div className="h-80 w-72 flex-shrink-0 overflow-hidden border border-gray-200">
-                            <img
-                              alt={product.imageAlt}
-                              src={product.imageSrc}
-                              className="h-full w-full object-center"
-                            />
+                          <div className="flex space-x-4">
+                            {product.images &&
+                              product.images.map((item, i) => (
+                                <div
+                                  key={i}
+                                  className="h-80 w-72 flex-shrink-0 overflow-hidden border border-gray-200"
+                                >
+                                  <img
+                                    alt={item.alt || "Product image"}
+                                    src={item.src}
+                                    className="h-full w-full object-center"
+                                  />
+                                </div>
+                              ))}
                           </div>
 
                           <div className="ml-4 flex flex-1 flex-col">
@@ -212,26 +220,27 @@ function CartComp() {
                                     <a href={product.href}>{product.name}</a>
                                   </div>
                                   <div className="flex justify-between text-xl font-extrabold text-gray-500 mb-1 ml-2">
-                                    {product.sub_name}
+                                    {product.koName}
                                   </div>
                                 </div>
                                 <div className="flex justify-between text-2xl font-extrabold text-gray-900 mb-1 ml-2">
-                                  {product.price} 원
+                                  {product.price}
                                 </div>
                               </div>
                               <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
                                 {product.style_num}
                               </div>
                               <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                                Color: {product.color}
+                                Color:
+                                {product.colors.map((item, i) => {
+                                  return <div key={i}>{item.name}</div>;
+                                })}
                               </div>
                               <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                                Size: {product.size}
-                              </div>
-                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
-                                <span className="underline">
-                                  Qty: {product.quantity}
-                                </span>
+                                Size:{" "}
+                                {product.sizes.map((item, i) => {
+                                  return <div key={i}>{item.name}</div>;
+                                })}
                               </div>
                             </div>
                             {/* <div className="mt-20 ml-96">
