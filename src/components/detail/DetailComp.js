@@ -1,196 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup } from "@headlessui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { useParams } from "react-router-dom";
+import { selectProducts } from "../../redux/reducer"; // 제품 리스트 가져오는 selector
+import { addToCart } from "../../redux/cartReducer";
 
 import "../../index.css";
 import "../../assets/css/reset.css";
 import "../../assets/css/detail.css";
-
-import hoody1 from "../../assets/images/detail/detail_description/hoody1.jpg";
-import hoody2 from "../../assets/images/detail/detail_description/hoody2.jpg";
-import hoody3 from "../../assets/images/detail/detail_description/hoody3.jpg";
-import icon1 from "../../assets/images/icon-chevron-slider.png";
-import icon2 from "../../assets/images/ff-icon-black.jpg";
-import icon3 from "../../assets/images/icon_pop_close_white.png";
-import icon4 from "../../assets/images/bg_arrow_down.jpg";
-import star from "../../assets/images/star.jpg";
-import search from "../../assets/images/icon-search-point.png";
-import impact1 from "../../assets/images/detail/impact/impact1.png";
-import impact2 from "../../assets/images/detail/impact/impact2.png";
-import impact3 from "../../assets/images/detail/impact/impact3.jpeg";
-import map from "../../assets/images/detail/impact/map.jpg";
-
-import review0 from "../../assets/images/detail/review/review0.webp";
-import review1 from "../../assets/images/detail/review/review1.webp";
-import review2 from "../../assets/images/detail/review/review2.webp";
-import review3 from "../../assets/images/detail/review/review3.webp";
-import review4 from "../../assets/images/detail/review/review4.webp";
-import review5 from "../../assets/images/detail/review/review5.webp";
-import review6 from "../../assets/images/detail/review/review6.webp";
-import review7 from "../../assets/images/detail/review/review7.jpg";
 
 import DescriptionSwiper from "./swiper/DescriptionSwiper";
 import RelatedSwiper from "./swiper/RelatedSwiper";
 import ImpactHowSwiper from "./swiper/ImpactHowSwiper";
 import ImpactWhereSwiper from "./swiper/ImpactWhereSwiper";
 import ViewedSwiper from "./swiper/ViewedSwiper";
-
-const product = {
-  name: "'73 Skyline Uprisal Hoody",
-  koName: "73 스카이라인 업라이절 후디",
-  price: "159,000원",
-  href: "#",
-  images: [
-    {
-      src: hoody1,
-      alt: "Ink Black",
-    },
-    {
-      src: hoody2,
-      alt: "모델의 키는 185cm이며, 착용 사이즈는 M입니다.",
-    },
-    {
-      src: hoody3,
-      alt: "모델의 키는 185cm이며, 착용 사이즈는 M입니다.",
-    },
-  ],
-  iconImage: [
-    { src: icon1 },
-    { src: icon2 },
-    { src: icon3 },
-    { src: icon4 },
-    { src: star },
-    { src: search },
-  ],
-  impactImage: [
-    { src: impact1 },
-    { src: impact2 },
-    { src: impact3 },
-    { src: map },
-  ],
-  reviewImage: [
-    {
-      src: review0,
-      goods: "아주 좋아요",
-      date: "2023.11.7",
-      content:
-        "파타고니아 너무 마음에 듭니다. 사이즈는 정사이즈 같아요. 재질이 추운날 입기 좋아보입니다",
-      writer: "kickbo*****",
-      height: "160~164cm",
-      weight: "45~49kg",
-      howTo: "일상복",
-      size: "XS",
-      grade: "일반회원",
-    },
-    {
-      src: review1,
-      goods: "아주 좋아요",
-      date: "2024.9.1",
-      content:
-        "73 스카이라인 약간 빈티지 하면서 심플한게 아주 맘에 들어요 파타고니아 화이팅입니다.",
-      writer: "sunhw****",
-      height: "165~169cm",
-      weight: "65~69kg",
-      howTo: "일상복",
-      size: " M",
-      grade: "일반회원",
-    },
-    {
-      src: review2,
-      goods: "아주 좋아요",
-      date: "2023.10.15",
-      content:
-        "미리 겨울 대비해서 구매했습니다 사이즈도 잘맞고 두툼한 편이네요 좋아요",
-      writer: "nto****",
-      height: "175~179cm",
-      weight: "75~79kg",
-      howTo: "일상복",
-      size: " L",
-      grade: "일반회원",
-    },
-    {
-      src: review3,
-      goods: "아주 좋아요",
-      date: "2023.12.18",
-      content:
-        "속에서 털 같은게 다름 옷에 묻어 나와서 어찌해야 할지? 모르겠어요? 한 번 한 시간 정도 입었는데? 바지에 털이 묻어 나와요!!!",
-      writer: "jeongl****",
-      height: "150~154cm",
-      weight: "44kg 이하",
-      howTo: "일상복",
-      size: "XS",
-      grade: "일반회원",
-    },
-    {
-      src: review4,
-      goods: "아주 좋아요",
-      date: "2023.10.24",
-      content:
-        "색상도 그렇고 사이즈도 딱 맞고 잘 입을 거 같습니다 모니터로 보기보다 이쁩니다",
-      writer: "corona1****",
-    },
-    {
-      src: review5,
-      goods: "아주 좋아요",
-      date: "2023.8.27",
-      content:
-        "사이즈 정사이즈 제가 키가 커서 팔이 맞는 제품 찾기가 힘든데 딱이네요^^",
-      writer: "slr1****",
-      height: "185~189cm",
-      weight: "80~84kg",
-      howTo: "일상복",
-      size: "XL",
-      grade: "일반회원",
-    },
-    {
-      src: review6,
-      goods: "아주 좋아요",
-      date: "2023.11.7",
-      content:
-        "73 스카이라인 약간 빈티지 하면서 심플한게 아주 맘에 들어요 파타고니아 화이팅입니다.",
-      writer: "kickbo*****",
-      height: "160~164cm",
-      weight: "45~49kg",
-      howTo: "일상복",
-      size: "XS",
-      grade: "일반회원",
-    },
-    {
-      src: review7,
-      goods: "아주 좋아요",
-      date: "2023.11.7",
-      content:
-        "마감도 깔끔하고 전체적인 퀄리티가 좋아요. 재생소재로 만든 의류라서 완전 흰색은 아니고 은은한 아이보리색인데 그래서 더 맘에 듭니다",
-      writer: "kickbo*****",
-      height: "160~164cm",
-      weight: "65~69kg",
-      howTo: "일상복",
-      size: " M",
-      grade: "일반회원",
-    },
-  ],
-
-  colors: [
-    { name: "Ink Black", class: "bg-black", selectedClass: "ring-gray-950" },
-    {
-      name: "Stormy Mauve",
-      class: "bg-[#9D848E]",
-      selectedClass: "ring-gray-950",
-    },
-  ],
-  sizes: [
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: false },
-    { name: "L", inStock: false },
-    { name: "XL", inStock: true },
-    { name: "XXL", inStock: false },
-  ],
-};
-
+import useCustomMove from "../../hooks/useCustomMove";
+import { addToCart as addProductToCart } from "../../redux/cartReducer";
 const reviews = { href: "#", average: 5, totalCount: 23 };
 
 function classNames(...classes) {
@@ -198,8 +27,45 @@ function classNames(...classes) {
 }
 
 function DetailComp() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const { moveToCart, addToCart } = useCustomMove();
+
+  const { id } = useParams();
+  console.log("i값" + id);
+  const navigate = useNavigate(); // 페이지 이동을 위한 hook
+  const dispatch = useDispatch(); // Redux 액션 호출
+  const products = useSelector(selectProducts); // Redux에서 전체 제품 리스트 가져오기
+  const product = products.find((item) => item.id === parseInt(id)); // id에 맞는 제품 찾기
+
+  console.log("찾은 product: ", product); // product 값 확인
+
+  const handleAddToCart = () => {
+    // Redux에 제품 추가ㅌ
+    dispatch(addProductToCart(product.id));
+    // 장바구니 페이지로 이동
+    addToCart(product);
+  };
+
+  // const handleAddToCart = () => {
+  //   dispatch(
+  //     addToCart({
+  //       id: product.id,
+  //       name: product.name,
+  //       price: product.price,
+  //       color: selectedColor,
+  //       size: selectedSize,
+  //     })
+  //   );
+  //   // 장바구니에 추가 후 CartComp로 이동
+  //   navigate("/cart");
+  // };
+
+  // product가 없는 경우 null로 초기화
+  const [selectedColor, setSelectedColor] = useState(
+    product ? product.colors[0] : null
+  );
+  const [selectedSize, setSelectedSize] = useState(
+    product ? product.sizes[2] : null
+  );
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -253,10 +119,7 @@ function DetailComp() {
             </a>
           </div>
           <div className="flex items-center">
-            <img
-              src={product.iconImage[0].src}
-              className="h-11 w-7 object-cover"
-            />
+            <i class="fa-solid fa-chevron-right"></i>
           </div>
           <div className="flex items-center">
             <a href="#" className="mr-2 text-xs font-bold text-gray-900">
@@ -437,15 +300,15 @@ function DetailComp() {
                 </button>
               </div>
               {/* cart */}
-              <div className="mt-4">
-                <NavLink to="/cart">
-                  <button
-                    type="submit"
-                    className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
-                  >
-                    장바구니
-                  </button>
-                </NavLink>
+              <div>
+                <h1>{product.name}</h1>
+                <button
+                  type="submit"
+                  className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
+                  onClick={handleAddToCart}
+                >
+                  장바구니
+                </button>
               </div>
               {/* 배송반품+모달 */}
               <div className="mt-4">
@@ -580,13 +443,13 @@ function DetailComp() {
                         onClick={() => toggleAccordion(0)}
                       >
                         <p className="flex-shrink-0">상품 상세정보</p>
-                        <img
-                          src={product.iconImage[3].src}
+                        <div
                           className={`flex-shrink-0 transition-transform duration-300 ${
                             accordionStates[0] ? "rotate-180" : ""
                           }`}
-                          alt="icon"
-                        />
+                        >
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                       </button>
 
                       {accordionStates[0] && (
@@ -650,13 +513,13 @@ function DetailComp() {
                         onClick={() => toggleAccordion(1)}
                       >
                         <p className="flex-shrink-0">소재</p>
-                        <img
-                          src={product.iconImage[3].src}
+                        <div
                           className={`flex-shrink-0 transition-transform duration-300 ${
                             accordionStates[1] ? "rotate-180" : ""
                           }`}
-                          alt="icon"
-                        />
+                        >
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                       </button>
 
                       {accordionStates[1] && (
@@ -688,13 +551,13 @@ function DetailComp() {
                         onClick={() => toggleAccordion(2)}
                       >
                         <p className="flex-shrink-0">상품 필수 정보</p>
-                        <img
-                          src={product.iconImage[3].src}
+                        <div
                           className={`flex-shrink-0 transition-transform duration-300 ${
                             accordionStates[2] ? "rotate-180" : ""
                           }`}
-                          alt="icon"
-                        />
+                        >
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                       </button>
 
                       {accordionStates[2] && (
@@ -767,7 +630,7 @@ function DetailComp() {
             {/* two images  */}
             <div className="mb-1 flex items-center justify-center gap-0">
               <a href="#">
-                <button>하기싫다..그만할게</button>
+                <button></button>
               </a>
             </div>
             {/* 취급 주의사항 */}
@@ -806,11 +669,10 @@ function DetailComp() {
               >
                 <div className="flex flex-col justify-center items-center text-center mt-[9px]">
                   <div className="flex justify-center items-center">
-                    <div className="w-10 h-10 mx-4 my-0 flex items-center bg-red-400 z-40">
-                      <img
-                        src={product.iconImage[4].src}
-                        className="fill-white w-5 h-5 bg-r"
-                      />
+                    <div className="w-10 h-10 mx-4 my-0 flex items-center justify-center align-middlez-40">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <i className="fa-regular fa-star text-white text-3xl"></i>
+                      </div>
                     </div>
                     <div className="text-white text-3xl">5.0</div>
                   </div>
@@ -1295,3 +1157,4 @@ function DetailComp() {
 }
 
 export default DetailComp;
+//icon complete

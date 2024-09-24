@@ -1,3 +1,37 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+import hoody1 from "../assets/images/detail/detail_description/hoody1.jpg";
+import hoody2 from "../assets/images/detail/detail_description/hoody2.jpg";
+import hoody3 from "../assets/images/detail/detail_description/hoody3.jpg";
+import icon1 from "../assets/images/icon-chevron-slider.png";
+import icon2 from "../assets/images/ff-icon-black.jpg";
+import icon3 from "../assets/images/icon_pop_close_white.png";
+import icon4 from "../assets/images/bg_arrow_down.jpg";
+import star from "../assets/images/star.jpg";
+import search from "../assets/images/icon-search-point.png";
+import impact1 from "../assets/images/detail/impact/impact1.png";
+import impact2 from "../assets/images/detail/impact/impact2.png";
+import impact3 from "../assets/images/detail/impact/impact3.jpeg";
+import map from "../assets/images/detail/impact/map.jpg";
+
+import review0 from "../assets/images/detail/review/review0.webp";
+import review1 from "../assets/images/detail/review/review1.webp";
+import review2 from "../assets/images/detail/review/review2.webp";
+import review3 from "../assets/images/detail/review/review3.webp";
+import review4 from "../assets/images/detail/review/review4.webp";
+import review5 from "../assets/images/detail/review/review5.webp";
+import review6 from "../assets/images/detail/review/review6.webp";
+import review7 from "../assets/images/detail/review/review7.jpg";
+
+import snowbelle1 from "../assets/images/detail/snowbelle1.jpg";
+import snowbelle2 from "../assets/images/detail/snowbelle2.jpg";
+import snowbelle3 from "../assets/images/detail/snowbelle3.jpg";
+import Bandana1 from "../assets/images/detail/Bandana1.jpg";
+import Bandana2 from "../assets/images/detail/Bandana2.jpg";
+import Bandana3 from "../assets/images/detail/Bandana3.jpg";
+
+import beanie from "../assets/images/detail/beanie.jpg";
+
 const productList = [
   {
     id: 1,
@@ -590,18 +624,15 @@ const productList = [
   },
 ];
 
-const reducer = (state = productList, action) => {
-  console.log(state, action);
-
-  if (action.type == "add_to_cart") {
-    return { ...state, name: state.name + action.payload };
-  }
-
-  if (action.type == "delete_from_cart") {
-    return { ...state, name: state.name - action.payload };
-  }
-
-  return state;
-};
-
-export default reducer;
+const reducer = createSlice({
+  name: "products",
+  initialState: productList,
+  reducers: {
+    setProducts: (state, action) => {
+      return action.payload;
+    },
+  },
+});
+export const { setProducts } = reducer.actions;
+export const selectProducts = (state) => state.products;
+export default reducer.reducer;
