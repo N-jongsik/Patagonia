@@ -17,6 +17,7 @@ import RelatedSwiper from "./swiper/RelatedSwiper";
 import ImpactHowSwiper from "./swiper/ImpactHowSwiper";
 import ImpactWhereSwiper from "./swiper/ImpactWhereSwiper";
 import ViewedSwiper from "./swiper/ViewedSwiper";
+import useCustomMove from "../../hooks/useCustomMove";
 
 // const product = {
 //   name: "'73 Skyline Uprisal Hoody",
@@ -770,6 +771,8 @@ function classNames(...classes) {
 }
 
 function DetailComp() {
+  const { moveToCart } = useCustomMove();
+
   const { id } = useParams();
   console.log("i값" + id);
   const products = useSelector(selectProducts); // Redux에서 전체 제품 리스트 가져오기
@@ -831,7 +834,6 @@ function DetailComp() {
 
   return (
     <div>
-      <h1>{product.name}</h1>
       <div className="pt-6">
         {/* 상품명 및 카테고리 정보 */}
         <div className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 ">
@@ -841,10 +843,7 @@ function DetailComp() {
             </a>
           </div>
           <div className="flex items-center">
-            <img
-              src={product.iconImage[0].src}
-              className="h-11 w-7 object-cover"
-            />
+            <i class="fa-solid fa-chevron-right"></i>
           </div>
           <div className="flex items-center">
             <a href="#" className="mr-2 text-xs font-bold text-gray-900">
@@ -1029,17 +1028,12 @@ function DetailComp() {
                 <button
                   type="submit"
                   className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
+                  onClick={() => {
+                    moveToCart(product.id);
+                  }}
                 >
                   장바구니
                 </button>
-              </div>
-              {/* 매장재고확인 */}
-              <div className="mt-4">
-                <NavLink to="/map">
-                  <button className="text-base font-bold text-black cursor-pointer">
-                    매장 재고 확인
-                  </button>
-                </NavLink>
               </div>
               {/* 배송반품+모달 */}
               <div className="mt-4">
@@ -1174,13 +1168,13 @@ function DetailComp() {
                         onClick={() => toggleAccordion(0)}
                       >
                         <p className="flex-shrink-0">상품 상세정보</p>
-                        <img
-                          src={product.iconImage[3].src}
+                        <div
                           className={`flex-shrink-0 transition-transform duration-300 ${
                             accordionStates[0] ? "rotate-180" : ""
                           }`}
-                          alt="icon"
-                        />
+                        >
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                       </button>
 
                       {accordionStates[0] && (
@@ -1244,13 +1238,13 @@ function DetailComp() {
                         onClick={() => toggleAccordion(1)}
                       >
                         <p className="flex-shrink-0">소재</p>
-                        <img
-                          src={product.iconImage[3].src}
+                        <div
                           className={`flex-shrink-0 transition-transform duration-300 ${
                             accordionStates[1] ? "rotate-180" : ""
                           }`}
-                          alt="icon"
-                        />
+                        >
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                       </button>
 
                       {accordionStates[1] && (
@@ -1282,13 +1276,13 @@ function DetailComp() {
                         onClick={() => toggleAccordion(2)}
                       >
                         <p className="flex-shrink-0">상품 필수 정보</p>
-                        <img
-                          src={product.iconImage[3].src}
+                        <div
                           className={`flex-shrink-0 transition-transform duration-300 ${
                             accordionStates[2] ? "rotate-180" : ""
                           }`}
-                          alt="icon"
-                        />
+                        >
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                       </button>
 
                       {accordionStates[2] && (
@@ -1361,7 +1355,7 @@ function DetailComp() {
             {/* two images  */}
             <div className="mb-1 flex items-center justify-center gap-0">
               <a href="#">
-                <button>하기싫다..그만할게</button>
+                <button></button>
               </a>
             </div>
             {/* 취급 주의사항 */}
@@ -1400,11 +1394,10 @@ function DetailComp() {
               >
                 <div className="flex flex-col justify-center items-center text-center mt-[9px]">
                   <div className="flex justify-center items-center">
-                    <div className="w-10 h-10 mx-4 my-0 flex items-center bg-red-400 z-40">
-                      <img
-                        src={product.iconImage[4].src}
-                        className="fill-white w-5 h-5 bg-r"
-                      />
+                    <div className="w-10 h-10 mx-4 my-0 flex items-center justify-center align-middlez-40">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <i className="fa-regular fa-star text-white text-3xl"></i>
+                      </div>
                     </div>
                     <div className="text-white text-3xl">5.0</div>
                   </div>
