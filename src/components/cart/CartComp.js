@@ -10,6 +10,7 @@ import foot_icon3 from "../../assets/images/icons_recycled2.png";
 import foot_icon4 from "../../assets/images/icons_hemp.png";
 import foot_icon5 from "../../assets/images/for-the-planet.png";
 import sletter from "../../assets/images/ybonsletter.png";
+import { Link } from "react-router-dom";
 // const products = [
 //   {
 //     id: 1,
@@ -251,13 +252,6 @@ function CartComp() {
                             <div className="mt-20 ml-96">
                               <button
                                 type="button"
-                                className="font-bold mr-6 text-lg text-gray-900"
-                                // 삭제 핸들러
-                              >
-                                삭제
-                              </button>
-                              <button
-                                type="button"
                                 className="font-bold text-lg text-white ml-8 bg-gray-900 px-10 py-1 rounded-full"
                                 // 바로구매 핸들러
                               >
@@ -400,12 +394,14 @@ function CartComp() {
               </button>
             </div>
             <div className="mt-8 mb-4">
-              <button
-                type="button"
-                className="font-bold text-lg text-white ml-20 bg-black border-solid border-white border-4 px-10 py-1 rounded-full"
-              >
-                쇼핑 계속하기
-              </button>
+              <Link to={"/shop"}>
+                <button
+                  type="button"
+                  className="font-bold text-lg text-white ml-20 bg-black border-solid border-white border-4 px-10 py-1 rounded-full"
+                >
+                  쇼핑 계속하기
+                </button>
+              </Link>
             </div>
 
             <div>
