@@ -603,20 +603,19 @@ function MapComp() {
         parseFloat(store.longitude)
       );
 
-      map.setCenter(position); // Center the map on the selected store
+      map.setCenter(position); //검색한 매장을 중심으로 지도 위치 옮기는 부분
 
-      // Loop through markers, show the selected marker and hide others
+      //검색한 매장의 마커만 보여주고 다른 매장의 마커 지우는 부분
       markers.forEach((marker) => {
         if (marker.getPosition().equals(position)) {
-          marker.setMap(map); // Show the selected marker
+          marker.setMap(map);
         } else {
-          marker.setMap(null); // Hide others
+          marker.setMap(null);
         }
       });
 
       setSelectedStore(store);
 
-      // Optional: Reset after a timeout
       setTimeout(() => {
         setSelectedStore(null);
       }, 3000);
@@ -633,6 +632,7 @@ function MapComp() {
     const createdMap = new kakao.maps.Map(mapContainer, mapOption);
     setMap(createdMap); // map 상태로 저장
 
+    //매장들의 정보 가져오기
     const positions = patagonia_store.map((store) => ({
       title: store.name,
       addr: store.addr,
@@ -689,6 +689,7 @@ function MapComp() {
       setStoreInfo(visibleMarkers); // 보이는 마커들의 정보를 저장
     };
 
+    //줌인 줌아웃시 정해진 반경안에 해당하는 매장 보여주기
     kakao.maps.event.addListener(
       createdMap,
       "zoom_changed",
@@ -773,7 +774,7 @@ function MapComp() {
             style={{
               padding: "1rem",
               background: "#f7f6f5",
-              height: "77.7vh",
+              height: "85vh",
               overflowY: "auto",
             }}
           >
