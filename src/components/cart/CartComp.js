@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectCart } from "../../redux/cartReducer";
 import { selectProducts } from "../../redux/reducer"; // 제품 목록에서 아이템 가져오기
@@ -42,11 +42,21 @@ import sletter from "../../assets/images/ybonsletter.png";
 function CartComp() {
   const cart = useSelector(selectCart); // Redux에서 장바구니 아이템 가져오기
   const products = useSelector(selectProducts); // products는 전체 제품 목록
+
   // cart에 담긴 제품들의 정보를 가져오기
   const cartItems = cart.map((id) =>
     products.find((product) => product.id === id)
   );
 
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    if (cartItems && cartItems.length > 0) {
+      const total = cartItems.reduce((acc, product) => acc + product.price2, 0);
+      setTotalPrice(total);
+    }
+  }, [cartItems]); // cartItems가 업데이트 될 때마다 totalPrice 계산
+
+  const formattedPrice = totalPrice.toLocaleString("ko-KR") + "원";
   const [open, setOpen] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -361,7 +371,7 @@ function CartComp() {
             </div>
             <div className="text-white font-semibold text-md ml-4 mt-6 flex justify-between w-96">
               <p>총 상품금액</p>
-              <p>349,000원</p>
+              <p>{totalPrice.toLocaleString("ko-KR")}원</p>
             </div>
             <div className="text-white font-semibold text-md ml-4 mt-4 flex justify-between w-96">
               <p>총 할인금액</p>
@@ -378,7 +388,7 @@ function CartComp() {
 
             <div className="text-white font-semibold text-md ml-4 mt-6 flex justify-between w-96">
               <p>총 결제 예정 금액</p>
-              <p>349,000원</p>
+              <p>{totalPrice.toLocaleString("ko-KR")}원</p>
             </div>
 
             <div className="mt-8 mb-4">
