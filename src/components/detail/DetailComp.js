@@ -19,7 +19,7 @@ import ImpactHowSwiper from "./swiper/ImpactHowSwiper";
 import ImpactWhereSwiper from "./swiper/ImpactWhereSwiper";
 import ViewedSwiper from "./swiper/ViewedSwiper";
 import useCustomMove from "../../hooks/useCustomMove";
-
+import { addToCart as addProductToCart } from "../../redux/cartReducer";
 const reviews = { href: "#", average: 5, totalCount: 23 };
 
 function classNames(...classes) {
@@ -27,7 +27,7 @@ function classNames(...classes) {
 }
 
 function DetailComp() {
-  const { moveToCart } = useCustomMove();
+  const { moveToCart, addToCart } = useCustomMove();
 
   const { id } = useParams();
   console.log("i값" + id);
@@ -38,7 +38,12 @@ function DetailComp() {
 
   console.log("찾은 product: ", product); // product 값 확인
 
-  const { addToCart } = useCustomMove();
+  const handleAddToCart = () => {
+    // Redux에 제품 추가
+    dispatch(addProductToCart(product));
+    // 장바구니 페이지로 이동
+    addToCart(product);
+  };
 
   // const handleAddToCart = () => {
   //   dispatch(
@@ -299,9 +304,7 @@ function DetailComp() {
                 <button
                   type="submit"
                   className="h-14 w-80 flex py-2 items-center justify-center space-between rounded-full border border-transparent bg-black px-8 text-base font-blond text-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out md:w-full sm:w-full"
-                  onClick={() => {
-                    addToCart(product.id);
-                  }}
+                  onClick={handleAddToCart}
                 >
                   장바구니
                 </button>
