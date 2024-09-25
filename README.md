@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# 🏞️ Patagonia Clone Project
+<br>
+<hr />
+현대오토에버 모빌리티 SW 스쿨 1기(웹&앱)과정에서 진행한 팀 프로젝트이다.
+<hr />
+## 배포 URL : [https://patagonia-clone.netlify.app](https://patagonia-clone.netlify.app)
+<hr />
+##🔥 주요 기능
+- React: 컴포넌트 기반 UI 설계로 빠르고 유연한 사용자 인터페이스 구현
+- Redux: 강력한 상태 관리로 쇼핑몰 기능을 효과적으로 처리
+- Kakao Map API: 지도 기반 매장 검색 및 위치 확인 기능 탑재
+- Lazy Loading: 성능 최적화를 위한 지연 로딩으로 더 빠르고 부드러운 사용자 경험 제공
+<br>
+<hr />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+🎯 구현 내용
+반응형 디자인: 모든 디바이스에서 완벽하게 작동하는 모바일 퍼스트 레이아웃
+상품 페이지: 상세 정보 및 리뷰를 포함한 동적인 상품 표시
+장바구니 기능: Redux를 이용한 장바구니 담기, 업데이트 및 상태 유지
+지도 연동: Kakao Map API로 매장 위치 검색 및 사용자 위치 표시
+리뷰 시스템: 리뷰 작성 및 평가 기능 구현
+🚀 기술 스택
+프론트엔드: React, Tailwind CSS, Redux
+지도 API: Kakao Map API
+기타: Lazy Loading, Axios를 통한 비동기 데이터 처리
+🏆 프로젝트 특징
+최신 웹 기술과 아웃도어 브랜드의 철학을 담아내어 사용자가 더 나은 쇼핑 경험을 즐길 수 있도록 구현했습니다.
+성능과 사용자 편의를 모두 고려한 최적화된 아키텍처로 대규모 트래픽에도 견딜 수 있는 확장성을 자랑합니다.
