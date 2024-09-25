@@ -1,8 +1,10 @@
 # 🏞️ Patagonia Clone Coding Project
 
-<img src="/src/assets/images/logo_patagonia.jpg"/>
-
-현대오토에버 모빌리티 SW 스쿨 1기(웹&앱) 과정에서 진행한 팀 프로젝트입니다.
+<p align="center">
+  <img src="/src/assets/images/logo_patagonia.jpg"/>
+  <br><br>
+  현대오토에버 모빌리티 SW 스쿨 1기(웹&앱) 과정에서 진행한 팀 프로젝트입니다.
+</p>
 
 ---
 
