@@ -15,7 +15,7 @@
 ## 🔥 주요 기능
 
 - **React**: 컴포넌트 기반 UI 설계로 빠르고 유연한 사용자 인터페이스 구현
-- **Redux**: 강력한 상태 관리로 쇼핑몰 기능을 효과적으로 처리(상품관리기능, 장바구니(cart)기능 등)
+- **Redux**: 강력한 상태 관리로 쇼핑몰 기능을 효과적으로 처리(상품 관리 기능, 장바구니 기능 등)
 - **Kakao Map API**: 지도 기반 매장 검색 및 위치 확인 기능 탑재
 - **Lazy Loading**: 성능 최적화를 위한 지연 로딩으로 더 빠르고 부드러운 사용자 경험 제공
 
@@ -43,7 +43,6 @@
 ![Lazy Loading](https://img.shields.io/badge/lazy%20loading-00C853?style=for-the-badge&logo=webpack&logoColor=white)
 ![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![VS Code](https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
 ---
 
@@ -59,5 +58,5 @@
 ## 🎤 소감
 
 최신 Frontend 기술을 적용하여 웹 페이지 클론 코딩을 진행하여 매우 도움이 되는 프로젝트였습니다.<br>
-Redux를 상품 관리 및 장바구니 기능에만 적용하였기에 상품 리뷰 등에 적용하지 못한 점이 아쉽습니다다.<br>
-추후 Redux를 적용한 기능의 개수를 확장시킬 것이며, 반응형 인터페이스를 더욱 디테일하게 Develop할 예정입니다.
+Redux를 상품 관리 및 장바구니 기능에만 적용하였기에 다양하게 적용하지 못한 점이 매우 아쉽습니다.<br>
+추후 Redux를 적용한 기능의 개수를 확장시킬 것이며, 반응형 인터페이스를 더욱 디테일하게 Develop 할 예정입니다.
