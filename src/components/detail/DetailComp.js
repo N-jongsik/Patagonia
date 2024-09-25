@@ -27,7 +27,7 @@ function classNames(...classes) {
 }
 
 function DetailComp() {
-  const { moveToCart, addToCart } = useCustomMove();
+  const { addToCart } = useCustomMove();
 
   const { id } = useParams();
   console.log("i값" + id);
@@ -44,20 +44,6 @@ function DetailComp() {
     // 장바구니 페이지로 이동
     addToCart(product);
   };
-
-  // const handleAddToCart = () => {
-  //   dispatch(
-  //     addToCart({
-  //       id: product.id,
-  //       name: product.name,
-  //       price: product.price,
-  //       color: selectedColor,
-  //       size: selectedSize,
-  //     })
-  //   );
-  //   // 장바구니에 추가 후 CartComp로 이동
-  //   navigate("/cart");
-  // };
 
   // product가 없는 경우 null로 초기화
   const [selectedColor, setSelectedColor] = useState(
