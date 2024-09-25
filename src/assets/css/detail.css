@@ -34,8 +34,8 @@
 .append-buttons button {
   display: inline-block;
   cursor: pointer;
-  border: 1px solid #007aff;
-  color: #007aff;
+  border: 1px solid black;
+  color: black;
   text-decoration: none;
   padding: 4px 10px;
   border-radius: 4px;

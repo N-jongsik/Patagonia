@@ -11,34 +11,6 @@ import foot_icon4 from "../../assets/images/icons_hemp.png";
 import foot_icon5 from "../../assets/images/for-the-planet.png";
 import sletter from "../../assets/images/ybonsletter.png";
 import { Link } from "react-router-dom";
-// const products = [
-//   {
-//     id: 1,
-//     name: "'73 Skyline Uprisal Hoody",
-//     sub_name: "73 스카이라인 업라이절 후디",
-//     href: "#",
-//     color: "Ink Black (INBK)",
-//     style_num: "26685P7",
-//     size: "XS",
-//     price: "159,000원",
-//     quantity: 1,
-//     imageSrc: product1,
-//     imageAlt: "",
-//   },
-//   {
-//     id: 2,
-//     name: "'73 Skyline Uprisal Hoody",
-//     sub_name: "73 스카이라인 업라이절 후디",
-//     href: "#",
-//     color: "Ink Black (INBK)",
-//     style_num: "26685P7",
-//     size: "XS",
-//     price: "159,000원",
-//     quantity: 1,
-//     imageSrc: product1,
-//     imageAlt: "",
-//   },
-// ];
 
 function CartComp() {
   const cart = useSelector(selectCart); // Redux에서 장바구니 아이템 가져오기
