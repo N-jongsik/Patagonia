@@ -36,14 +36,15 @@
 - **지도 API**: Kakao Map API
 - **기타**: Lazy Loading을 통한 성능 최적화
 
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white" style="border-radius:10px">
-<img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white" style="border-radius:10px">
-<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" style="border-radius:10px">
-<img src="https://img.shields.io/badge/kakao-FFCD00?style=for-the-badge&logo=kakaotalk&logoColor=black" style="border-radius:10px">
-<img src="https://img.shields.io/badge/lazy%20loading-00C853?style=for-the-badge&logo=webpack&logoColor=white" style="border-radius:10px">
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" style="border-radius:10px">
-<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" style="border-radius:10px">
-<img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white" style="border-radius:10px">
+![React](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white)
+![Redux](https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Kakao](https://img.shields.io/badge/kakao-FFCD00?style=for-the-badge&logo=kakaotalk&logoColor=black)
+![Lazy Loading](https://img.shields.io/badge/lazy%20loading-00C853?style=for-the-badge&logo=webpack&logoColor=white)
+![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![VS Code](https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+
 ---
 
 ## 👤 팀 소개
