@@ -38,7 +38,7 @@
 
 ---
 
-## 🚀 팀 소개
+## 👤 팀 소개
 
 - **남종식**: [https://github.com/N-jongsik](https://github.com/N-jongsik)
 - **양혜지**: [https://github.com/yhj0619](https://github.com/yhj0619)
