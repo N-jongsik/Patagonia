@@ -35,6 +35,7 @@
 - **프론트엔드**: React, Tailwind CSS, Redux
 - **지도 API**: Kakao Map API
 - **기타**: Lazy Loading, Axios를 통한 비동기 데이터 처리
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" style="border-radius:10px">
 
 ---
 
@@ -49,6 +50,6 @@
 
 ## 🎤 소감
 
-최신 Frontend 기술을 적용하여 웹 페이지 클론 코딩을 진행하여 매우 도움이 되는 프로젝트였다.
-Redux를 상품 관리 및 장바구니 기능에만 적용하였기에 상품 리뷰 등에 적용하지 못한 점이 아쉽다.
-추후 Redux를 적용한 기능의 개수를 확장시킬 것이며, 반응형 인터페이스를 더욱 디테일하게 Develop할 예정이다.
+최신 Frontend 기술을 적용하여 웹 페이지 클론 코딩을 진행하여 매우 도움이 되는 프로젝트였습니다.<br>
+Redux를 상품 관리 및 장바구니 기능에만 적용하였기에 상품 리뷰 등에 적용하지 못한 점이 아쉽습니다다.<br>
+추후 Redux를 적용한 기능의 개수를 확장시킬 것이며, 반응형 인터페이스를 더욱 디테일하게 Develop할 예정입니다.
