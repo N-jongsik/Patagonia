@@ -141,7 +141,7 @@ function CartComp() {
                   product ? ( // product가 null일 가능성 처리
                     <li
                       key={product.id}
-                      className="flex ml-12 mb-4 py-6 w-6/7 h-120"
+                      className="flex ml-12 mb-4 py-6 w-aauto h-auto"
                     >
                       <div>
                         <div className="mb-4">
@@ -182,7 +182,7 @@ function CartComp() {
                           <div className="flex space-x-4">
                             <div
                               key={0}
-                              className="h-80 w-72 flex-shrink-0 overflow-hidden border border-gray-200"
+                              className="h-72 w-60 flex-shrink-0 overflow-hidden border border-gray-200"
                             >
                               <img
                                 alt={product.images[0].alt}
@@ -196,35 +196,35 @@ function CartComp() {
                             <div>
                               <div className="flex justify-between">
                                 <div className="pr-32">
-                                  <div className="flex justify-between text-3xl font-extrabold text-gray-700 mb-1">
+                                  <div className="flex justify-between text-xl font-extrabold text-gray-700 mb-1">
                                     <a href={product.href}>{product.name}</a>
                                   </div>
-                                  <div className="flex justify-between text-xl font-extrabold text-gray-500 mb-1 ml-2">
+                                  <div className="flex justify-between text-lg font-extrabold text-gray-500 mb-1 ml-2">
                                     {product.koName}
                                   </div>
                                 </div>
-                                <div className="flex justify-between text-2xl font-extrabold text-gray-900 mb-1 ml-2">
+                                <div className="flex justify-between text-xl font-extrabold text-gray-900 mb-1 ml-2">
                                   {product.price}
                                 </div>
                               </div>
-                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                              <div className="flex justify-between text-md font-medium text-gray-800 mb-1 ml-2">
                                 {product.style_num}
                               </div>
-                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                              <div className="flex justify-between text-md font-medium text-gray-800 mb-1 ml-2">
                                 Color: Ink Black (INBK)
                               </div>
-                              <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                              <div className="flex justify-between text-md font-medium text-gray-800 mb-1 ml-2">
                                 Size: XS
                               </div>
                             </div>
-                            <div className="flex justify-between text-xl font-medium text-gray-800 mb-1 ml-2">
+                            <div className="flex justify-between text-md font-medium text-gray-800 mb-1 ml-2">
                               <span className="underline">Qty: 1</span>
                             </div>
 
-                            <div className="mt-20 ml-96">
+                            <div className="mt-20 ml-72">
                               <button
                                 type="button"
-                                className="font-bold text-lg text-white ml-8 bg-gray-900 px-10 py-1 rounded-full"
+                                className="font-bold text-lg text-white ml-8 bg-gray-900 px-10 py-2 rounded-full"
                                 // 바로구매 핸들러
                               >
                                 바로구매
@@ -317,21 +317,21 @@ function CartComp() {
             <div className="ml-4">
               <img src={foot_icon5} className="w-28 h-12"></img>
             </div>
-            <div className="flex justify-between gap-4 mr-32 mt-3">
-              <div className="text-2xl ">
+            <div className="flex justify-between gap-4 ml-2 mt-3">
+              <div className="text-lg ">
                 <p>
                   구매하신 금액의 1%는 풀뿌리 환경단체에 지원금으로 전달됩니다.
                 </p>
               </div>
-              <div className="text-2xl font-bold">
+              <div className="text-lg font-bold">
                 <p>Learn More</p>
               </div>
             </div>
           </div>
         </div>
         {/* 결제 창 */}
-        <div className="bg-black w-1/3 rounded-lg py-4 ml-2 mr-8 h-3/5 hidden xl:flex">
-          <div className="ml-28">
+        <div className="bg-black w-2/5 rounded-lg py-4 px-2 ml-4 mr-8 h-2/5 hidden xl:flex">
+          <div className="ml-24">
             <div className="text-white font-bold text-xl ml-4 py-4">
               <p>전체합계</p>
             </div>
@@ -365,7 +365,7 @@ function CartComp() {
                 &nbsp;&nbsp;&nbsp;&nbsp;구매하기&nbsp;&nbsp;&nbsp;
               </button>
             </div>
-            <div className="mt-8 mb-4">
+            <div className="mt-4 mb-4">
               <Link to={"/shop"}>
                 <button
                   type="button"
