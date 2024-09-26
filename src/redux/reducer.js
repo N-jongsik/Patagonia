@@ -7,7 +7,6 @@ import icon1 from "../assets/images/icon-chevron-slider.png";
 import icon2 from "../assets/images/ff-icon-black.jpg";
 import icon3 from "../assets/images/icon_pop_close_white.png";
 import icon4 from "../assets/images/bg_arrow_down.jpg";
-import star from "../assets/images/star.jpg";
 import search from "../assets/images/icon-search-point.png";
 import impact1 from "../assets/images/detail/impact/impact1.png";
 import impact2 from "../assets/images/detail/impact/impact2.png";
@@ -60,7 +59,7 @@ const productList = [
       { src: icon2 },
       { src: icon3 },
       { src: icon4 },
-      { src: star },
+      { src: "" },
       { src: search },
     ],
     impactImage: [
@@ -212,7 +211,7 @@ const productList = [
       { src: icon2 },
       { src: icon3 },
       { src: icon4 },
-      { src: star },
+      { src: "" },
       { src: search },
     ],
     impactImage: [
@@ -348,7 +347,7 @@ const productList = [
       { src: icon2 },
       { src: icon3 },
       { src: icon4 },
-      { src: star },
+      { src: "" },
       { src: search },
     ],
     impactImage: [
@@ -503,7 +502,7 @@ const productList = [
       { src: icon2 },
       { src: icon3 },
       { src: icon4 },
-      { src: star },
+      { src: "" },
       { src: search },
     ],
     impactImage: [
