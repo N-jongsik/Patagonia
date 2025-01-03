@@ -9,6 +9,11 @@
 
 ---
 
+## 📅 프로젝트 기간
+2024년 9월 13일 ~ 2024년 9월 19일
+
+---
+
 ## 🔗 배포 URL
 
 [https://patagonia-clone.netlify.app](https://patagonia-clone.netlify.app)
